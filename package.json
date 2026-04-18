@@ -1,0 +1,29 @@
+{
+  "name": "serverest-api-tests",
+  "version": "1.0.0",
+  "description": "Studying API automation with Cypress and JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "test": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinilourenco/serverest-api-tests.git"
+  },
+  "keywords": [
+    "cypress",
+    "serverest",
+    "automation",
+    "api"
+  ],
+  "author": "Vinícius <vinicius_lourenco@outlook.com> (https://www.linkedin.com/in/viniciusaplourenco/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinilourenco/serverest-api-tests/issues"
+  },
+  "homepage": "https://github.com/vinilourenco/serverest-api-tests#readme",
+  "devDependencies": {
+    "cypress": "^15.14.0"
+  }
+}
