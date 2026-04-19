@@ -1,0 +1,129 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 2,
+    "passes": 1,
+    "pending": 0,
+    "failures": 1,
+    "start": "2026-04-19T15:30:03.928Z",
+    "end": "2026-04-19T15:30:05.320Z",
+    "duration": 1392,
+    "testsRegistered": 2,
+    "passPercent": 50,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "01244f09-a84d-41ae-ab1c-527390bf20b6",
+      "title": "",
+      "fullFile": "cypress\\e2e\\auth\\login.cy.js",
+      "file": "cypress\\e2e\\auth\\login.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "0fdc7836-e1bc-4b7c-8074-4f28ad0662bf",
+          "title": "Auth - Login",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "should login succesfully",
+              "fullTitle": "Auth - Login should login succesfully",
+              "timedOut": null,
+              "duration": 449,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: 'POST',\n  url: `${Cypress.config('baseUrl')}/login`,\n  body: {\n    email: user.email,\n    password: user.password\n  }\n}).then(response => {\n  expect(response.status).to.equal(200);\n  expect(response.statusText).to.equal('OK');\n});",
+              "err": {},
+              "uuid": "1ec2c65b-836b-4342-a6c2-bebd8d819475",
+              "parentUUID": "0fdc7836-e1bc-4b7c-8074-4f28ad0662bf",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "should fail login",
+              "fullTitle": "Auth - Login should fail login",
+              "timedOut": null,
+              "duration": 796,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: 'POST',\n  url: `${Cypress.config('baseUrl')}/login`,\n  body: {\n    email: user.email,\n    password: 'teste1'\n  }\n}).then(response => {\n  expect(response.status).to.equal(401);\n  expect(response.statusText).to.equal('Unathorized');\n});",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://serverest.dev/login\n\nThe response we received from your web server was:\n\n  > 401: Unauthorized\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://serverest.dev/login\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/15.14.0 Chrome/138.0.7204.251 Electron/37.6.0 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 45\n}\nBody: {\"email\":\"fulano@qa.com\",\"password\":\"teste1\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 401 - Unauthorized\nHeaders: {\n  \"access-control-allow-origin\": \"*\",\n  \"x-dns-prefetch-control\": \"off\",\n  \"x-frame-options\": \"SAMEORIGIN\",\n  \"strict-transport-security\": \"max-age=15552000; includeSubDomains\",\n  \"x-download-options\": \"noopen\",\n  \"x-content-type-options\": \"nosniff\",\n  \"x-xss-protection\": \"1; mode=block\",\n  \"content-type\": \"application/json; charset=utf-8\",\n  \"x-cloud-trace-context\": \"2cb0263282667fcbf486652e6783abe4\",\n  \"date\": \"Sun, 19 Apr 2026 15:29:26 GMT\",\n  \"server\": \"Google Frontend\",\n  \"content-length\": \"48\"\n}\nBody: {\n  \"message\": \"Email e/ou senha inválidos\"\n}\n\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://serverest.dev/login\n\nThe response we received from your web server was:\n\n  > 401: Unauthorized\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: POST\nURL: https://serverest.dev/login\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/15.14.0 Chrome/138.0.7204.251 Electron/37.6.0 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\",\n  \"content-type\": \"application/json\",\n  \"content-length\": 45\n}\nBody: {\"email\":\"fulano@qa.com\",\"password\":\"teste1\"}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 401 - Unauthorized\nHeaders: {\n  \"access-control-allow-origin\": \"*\",\n  \"x-dns-prefetch-control\": \"off\",\n  \"x-frame-options\": \"SAMEORIGIN\",\n  \"strict-transport-security\": \"max-age=15552000; includeSubDomains\",\n  \"x-download-options\": \"noopen\",\n  \"x-content-type-options\": \"nosniff\",\n  \"x-xss-protection\": \"1; mode=block\",\n  \"content-type\": \"application/json; charset=utf-8\",\n  \"x-cloud-trace-context\": \"2cb0263282667fcbf486652e6783abe4\",\n  \"date\": \"Sun, 19 Apr 2026 15:29:26 GMT\",\n  \"server\": \"Google Frontend\",\n  \"content-length\": \"48\"\n}\nBody: {\n  \"message\": \"Email e/ou senha inválidos\"\n}\n\n\nhttps://on.cypress.io/request\n    at <unknown> (https://serverest.dev/__cypress/runner/cypress_runner.js:136440:72)\n    at tryCatcher (https://serverest.dev/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise._settlePromiseFromHandler (https://serverest.dev/__cypress/runner/cypress_runner.js:1489:31)\n    at Promise._settlePromise (https://serverest.dev/__cypress/runner/cypress_runner.js:1546:18)\n    at Promise._settlePromise0 (https://serverest.dev/__cypress/runner/cypress_runner.js:1591:10)\n    at Promise._settlePromises (https://serverest.dev/__cypress/runner/cypress_runner.js:1671:18)\n    at _drainQueueStep (https://serverest.dev/__cypress/runner/cypress_runner.js:2377:12)\n    at _drainQueue (https://serverest.dev/__cypress/runner/cypress_runner.js:2370:9)\n    at Async._drainQueues (https://serverest.dev/__cypress/runner/cypress_runner.js:2386:5)\n    at Async.drainQueues (https://serverest.dev/__cypress/runner/cypress_runner.js:2256:14)\nFrom Your Spec Code:\n    at Context.eval (webpack://serverest-api-tests/./cypress/e2e/auth/login.cy.js:23:11)",
+                "diff": null
+              },
+              "uuid": "c17a9f3a-24bc-400a-8f42-746ec48180da",
+              "parentUUID": "0fdc7836-e1bc-4b7c-8074-4f28ad0662bf",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "1ec2c65b-836b-4342-a6c2-bebd8d819475"
+          ],
+          "failures": [
+            "c17a9f3a-24bc-400a-8f42-746ec48180da"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1245,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.2.0"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.4"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "cypress/reports",
+        "overwrite": true,
+        "html": true,
+        "json": true
+      },
+      "version": "6.3.2"
+    }
+  }
+}
