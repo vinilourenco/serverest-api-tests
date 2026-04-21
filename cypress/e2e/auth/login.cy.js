@@ -5,7 +5,7 @@ describe('Auth - Login', () => {
         password: 'teste'
     }
 
-    it('Should login succesfully', () => {
+    it.only('Should login succesfully', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
@@ -16,6 +16,9 @@ describe('Auth - Login', () => {
         }).then((response) => {
             expect(response.status).to.equal(200);
             expect(response.statusText).to.equal('OK');
+            expect(response.body).to.include.all.keys('message', 'authorization').and.to.satisfy(body => {
+                return body.message.includes('sucesso') && body.authorization.includes('Bearer')
+            })
         })
     })
 
@@ -97,7 +100,7 @@ describe('Auth - Login', () => {
         })
     })
 
-    it.only('Bad Request - Malformed Payload', () => {
+    it('Bad Request - Malformed Payload', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
