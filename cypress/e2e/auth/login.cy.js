@@ -5,7 +5,7 @@ describe('Auth - Login', () => {
         password: 'teste'
     }
 
-    it.only('Should login succesfully', () => {
+    it('Should login succesfully', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
