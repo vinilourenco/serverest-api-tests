@@ -49,6 +49,36 @@ describe('Auth - Login', () => {
         })
     })
 
+    it('Should fail login - email is blank', () => {
+        cy.request({
+           method: 'POST',
+           url: `${Cypress.config('baseUrl')}/login`,
+           body: {
+            email: '',
+            password: 'teste'
+           },
+           failOnStatusCode: false 
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('email').includes('email não pode ficar em branco')
+        })
+    })
+
+    it.only('Should fail login - password is blank', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/login`,
+            body: {
+              email: 'fulano@qa.com',
+              password: ''
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('password').includes('password não pode ficar em branco')
+        })
+    })
+
     it('Should fail login - email and password fields are blank', () => {
         cy.request({
             method: 'POST',
