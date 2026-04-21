@@ -37,7 +37,7 @@ describe('Auth - Login', () => {
         })
     })
 
-    it('Should fail login - invalid email', () => {
+    it('Bad Request - invalid email', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
