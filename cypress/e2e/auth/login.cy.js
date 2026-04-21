@@ -19,7 +19,7 @@ describe('Auth - Login', () => {
         })
     })
 
-    it('Should fail login - wrong passworld', () => {
+    it('Unauthorized - invalid passworld', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
@@ -34,7 +34,7 @@ describe('Auth - Login', () => {
         })
     })
 
-    it('Should fail login - wrong user name', () => {
+    it('Should fail login - invalid email', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
@@ -49,7 +49,7 @@ describe('Auth - Login', () => {
         })
     })
 
-    it('Should fail login - email is blank', () => {
+    it('Bad Request - email is blank', () => {
         cy.request({
            method: 'POST',
            url: `${Cypress.config('baseUrl')}/login`,
@@ -64,7 +64,7 @@ describe('Auth - Login', () => {
         })
     })
 
-    it.only('Should fail login - password is blank', () => {
+    it('Bad Request - password is blank', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
@@ -79,7 +79,7 @@ describe('Auth - Login', () => {
         })
     })
 
-    it('Should fail login - email and password fields are blank', () => {
+    it('Bad Request - email and password fields are blank', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
@@ -94,6 +94,24 @@ describe('Auth - Login', () => {
                 .and.to.satisfy(body => {
                     return body.email.includes('branco') && body.password.includes('branco')
                 })
+        })
+    })
+
+    it.only('Bad Request - Malformed Payload', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/login`,
+            body: {
+                username: 'fulano@qa.com',
+                password: 'teste'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.include.all.keys('email', 'username')
+                .and.to.satisfy(body => {
+                    return body.email.includes('email é obrigatório') && body.username.includes('username não é permitido')
+            })
         })
     })
 })
