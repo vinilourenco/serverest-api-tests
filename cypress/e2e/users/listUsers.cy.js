@@ -1,11 +1,11 @@
 describe('Users - List Users', () => {
 
     const user = {
-        nome: 'Teste',
-        email: 'fulano@qa.com',
-        password: '123456',
-        administrador: false,
-        _id: '3hqQqD7ChRI5M2Im'
+        nome: 'Fulano da Silva',
+        email: 'beltrano@qa.com.br',
+        password: 'teste',
+        administrador: true,
+        _id: '0uxuPY0cbmQhpEz1'
     }
 
     it('Should list all users', () => {
@@ -18,7 +18,7 @@ describe('Users - List Users', () => {
         })
     })
 
-    it.only('OK - Filtering by existing ID', () => {
+    it('OK - Filtering by existing ID', () => {
         cy.request({
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?_id=${user._id}`
@@ -29,6 +29,15 @@ describe('Users - List Users', () => {
                 .that.is.an('array')
                 .and.is.not.empty
             expect(response.body.usuarios[0]).to.have.property('_id', user._id)
+        })
+    })
+
+    it('OK - Filtering by existing name', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/usuarios?nome=${user.nome}`
+        }).then((response) => {
+            expect(response.body).to.have.property('usuarios').that.is.an('array').and.is.not.empty
         })
     })
 }) 
