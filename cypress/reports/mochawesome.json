@@ -2,14 +2,14 @@
   "stats": {
     "suites": 1,
     "tests": 1,
-    "passes": 1,
+    "passes": 0,
     "pending": 0,
-    "failures": 0,
-    "start": "2026-04-20T16:34:35.854Z",
-    "end": "2026-04-20T16:34:36.187Z",
-    "duration": 333,
+    "failures": 1,
+    "start": "2026-04-22T15:42:20.225Z",
+    "end": "2026-04-22T15:42:20.877Z",
+    "duration": 652,
     "testsRegistered": 1,
-    "passPercent": 100,
+    "passPercent": 0,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "a6459d56-3257-4aac-8eda-be71606571c8",
+      "uuid": "c74ee057-94c4-4f89-9743-5056018d3a3e",
       "title": "",
       "fullFile": "cypress\\e2e\\users\\listUsers.cy.js",
       "file": "cypress\\e2e\\users\\listUsers.cy.js",
@@ -27,7 +27,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "d6c6afcb-ccb4-4400-91d4-394d620ba741",
+          "uuid": "6ab4d764-f17a-426b-ab9a-8be0f7f1e5e9",
           "title": "Users - List Users",
           "fullFile": "",
           "file": "",
@@ -38,29 +38,33 @@
               "title": "Should list all users",
               "fullTitle": "Users - List Users Should list all users",
               "timedOut": null,
-              "duration": 253,
-              "state": "passed",
-              "speed": "fast",
-              "pass": true,
-              "fail": false,
+              "duration": 600,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
               "pending": false,
               "context": null,
-              "code": "cy.request({\n  method: 'GET',\n  url: `${Cypress.config('baseUrl')}/usuarios`\n}).then(response => {\n  expect(response.status).to.equal(200);\n});",
-              "err": {},
-              "uuid": "fa847e36-30d1-4aae-a96c-f10510aa115d",
-              "parentUUID": "d6c6afcb-ccb4-4400-91d4-394d620ba741",
+              "code": "cy.request({\n  method: 'GET',\n  url: `${Cypress.config('baseUrl')}/usuarios`\n}).then(response => {\n  expect(response.status).to.equal(200);\n  expect(response.body).to.have.property('quantidade').should('be.visible');\n});",
+              "err": {
+                "message": "Error: Invalid Chai property: should",
+                "estack": "Error: Invalid Chai property: should\n    at Object.proxyGetter [as get] (https://serverest.dev/__cypress/runner/cypress_runner.js:81140:17)\n    at Context.eval (webpack://serverest-api-tests/./cypress/e2e/users/listUsers.cy.js:9:65)\n    at getRet (https://serverest.dev/__cypress/runner/cypress_runner.js:122799:20)\n    at tryCatcher (https://serverest.dev/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://serverest.dev/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (https://serverest.dev/__cypress/runner/cypress_runner.js:122810:66)\n    at Context.then (https://serverest.dev/__cypress/runner/cypress_runner.js:123061:21)\n    at wrapped (https://serverest.dev/__cypress/runner/cypress_runner.js:146320:19)\nFrom Your Spec Code:\n    at Context.eval (webpack://serverest-api-tests/./cypress/e2e/users/listUsers.cy.js:9:12)\n    at getRet (https://serverest.dev/__cypress/runner/cypress_runner.js:122799:20)\n    at tryCatcher (https://serverest.dev/__cypress/runner/cypress_runner.js:1777:23)\n    at Promise.attempt.Promise.try (https://serverest.dev/__cypress/runner/cypress_runner.js:4285:29)\n    at Context.thenFn (https://serverest.dev/__cypress/runner/cypress_runner.js:122810:66)\n    at Context.then (https://serverest.dev/__cypress/runner/cypress_runner.js:123061:21)\n    at wrapped (https://serverest.dev/__cypress/runner/cypress_runner.js:146320:19)",
+                "diff": null
+              },
+              "uuid": "8b352c34-e3a1-42e1-906a-f700316ddfee",
+              "parentUUID": "6ab4d764-f17a-426b-ab9a-8be0f7f1e5e9",
               "isHook": false,
               "skipped": false
             }
           ],
           "suites": [],
-          "passes": [
-            "fa847e36-30d1-4aae-a96c-f10510aa115d"
+          "passes": [],
+          "failures": [
+            "8b352c34-e3a1-42e1-906a-f700316ddfee"
           ],
-          "failures": [],
           "pending": [],
           "skipped": [],
-          "duration": 253,
+          "duration": 600,
           "root": false,
           "rootEmpty": false,
           "_timeout": 2000
