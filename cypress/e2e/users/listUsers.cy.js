@@ -2,7 +2,7 @@ describe('Users - List Users', () => {
 
     const user = {
         nome: 'Fulano da Silva',
-        email: 'beltrano@qa.com.br',
+        email: 'fulano@qa.com',
         password: 'teste',
         administrador: true,
         _id: '0uxuPY0cbmQhpEz1'
@@ -37,7 +37,19 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?nome=${user.nome}`
         }).then((response) => {
+            expect(response.body).to.have.property('usuarios')
+                .that.is.an('array')
+                .and.is.not.empty
+        })
+    })
+
+    it('OK - Filtering by existing email', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/usuarios?email=${user.email}`
+        }).then((response) => {
             expect(response.body).to.have.property('usuarios').that.is.an('array').and.is.not.empty
+            expect(response.body.usuarios[0]).to.have.property('email', user.email)
         })
     })
 }) 
