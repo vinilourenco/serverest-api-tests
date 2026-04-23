@@ -1,5 +1,9 @@
+const Chance = require('chance')
+
 describe('Users - List Users', () => {
 
+    const chance = new Chance()
+    const randomName = chance.name()
     const user = {
         nome: 'Fulano da Silva',
         email: 'fulano@qa.com',
@@ -73,6 +77,17 @@ describe('Users - List Users', () => {
         cy.request({
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?email=${nonExistentEmail}`
+        }).then((response) => {
+            expect(response.body).to.have.property('usuarios')
+                .that.is.an('array')
+                .and.is.empty
+        })
+    })
+
+    it.only('OK - Filtering by non-existent name', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/usuarios?nome=${randomName}`
         }).then((response) => {
             expect(response.body).to.have.property('usuarios')
                 .that.is.an('array')
