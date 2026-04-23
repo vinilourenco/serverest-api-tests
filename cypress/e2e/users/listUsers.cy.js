@@ -4,7 +4,7 @@ describe('Users - List Users', () => {
         nome: 'Fulano da Silva',
         email: 'fulano@qa.com',
         password: 'teste',
-        administrador: true,
+        administrador: 'true',
         _id: '0uxuPY0cbmQhpEz1'
     }
 
@@ -48,8 +48,22 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?email=${user.email}`
         }).then((response) => {
-            expect(response.body).to.have.property('usuarios').that.is.an('array').and.is.not.empty
+            expect(response.body).to.have.property('usuarios')
+                .that.is.an('array')
+                .and.is.not.empty
             expect(response.body.usuarios[0]).to.have.property('email', user.email)
+        })
+    })
+
+    it('OK - Filtering by administrator', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/usuarios?administrador=${user.administrador}`
+        }).then((response) => {
+            expect(response.body).to.have.property('usuarios')
+                .that.is.an('array')
+                .and.is.not.empty
+            expect(response.body.usuarios[0]).to.have.property('administrador', user.administrador)
         })
     })
 }) 
