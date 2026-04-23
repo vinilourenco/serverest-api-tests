@@ -66,4 +66,17 @@ describe('Users - List Users', () => {
             expect(response.body.usuarios[0]).to.have.property('administrador', user.administrador)
         })
     })
+
+    it('OK - Filtering by non-existing email', () => {
+        const nonExistentEmail = 'inexistent@example.com'
+
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/usuarios?email=${nonExistentEmail}`
+        }).then((response) => {
+            expect(response.body).to.have.property('usuarios')
+                .that.is.an('array')
+                .and.is.empty
+        })
+    })
 }) 
