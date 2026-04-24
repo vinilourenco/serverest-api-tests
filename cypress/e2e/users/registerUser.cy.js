@@ -57,4 +57,72 @@ describe('Users - Register Users', () => {
             expect(response.body).to.have.property('message').includes('Este email já está sendo usado')
         })
     })
+
+    it('Bad Request - Should return error when name field is missing', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/usuarios`,
+            body: {
+                nome: '',
+                email: `${randomEmail}`,
+                password: 'teste',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('nome').includes('nome não pode ficar em branco')
+        })
+    })
+
+    it('Bad Request - Should return error when email field is missing', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/usuarios`,
+            body: {
+                nome: `${randomName}`,
+                email: '',
+                password: 'teste',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('email').includes('email não pode ficar em branco')
+        })
+    })
+
+    it('Bad Request - Should return error when password field is missing', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/usuarios`,
+            body: {
+                nome: `${randomName}`,
+                email: `${randomEmail}`,
+                password: '',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('password').includes('password não pode ficar em branco')
+        })
+    })
+
+    it('Bad Request - Should return error when administrator field is missing', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/usuarios`,
+            body: {
+                nome: `${randomName}`,
+                email: `${randomEmail}`,
+                password: 'teste',
+                administrador: ''
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('administrador').includes("administrador deve ser 'true' ou 'false'")
+        })
+    })
 })
