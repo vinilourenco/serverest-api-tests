@@ -41,6 +41,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?nome=${user.nome}`
         }).then((response) => {
+            expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
                 .that.is.an('array')
                 .and.is.not.empty
@@ -52,6 +53,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?email=${user.email}`
         }).then((response) => {
+            expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
                 .that.is.an('array')
                 .and.is.not.empty
@@ -64,6 +66,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?administrador=${user.administrador}`
         }).then((response) => {
+            expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
                 .that.is.an('array')
                 .and.is.not.empty
@@ -78,6 +81,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?email=${randomEmail}`
         }).then((response) => {
+            expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
                 .that.is.an('array')
                 .and.is.empty
@@ -89,6 +93,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?nome=${randomName}`
         }).then((response) => {
+            expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
                 .that.is.an('array')
                 .and.is.empty
@@ -101,6 +106,7 @@ describe('Users - List Users', () => {
             url: `${Cypress.config('baseUrl')}/usuarios?invalidParam=value`,
             failOnStatusCode: false
         }).then((response) => {
+            expect(response.status).to.equal(400)
             expect(response.body).to.have.property('invalidParam').includes('invalidParam não é permitido')
         })
     })

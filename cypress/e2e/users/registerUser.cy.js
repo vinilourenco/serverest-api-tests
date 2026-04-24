@@ -40,4 +40,21 @@ describe('Users - Register Users', () => {
             expect(response.body).to.have.property('email').includes('email deve ser um email válido')
         })
     })
+
+    it('Bad Request - Should return error when email is already taken', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/usuarios`,
+            body: {
+                nome: `${randomName}`,
+                email: 'fulano@qa.com',
+                password: 'teste',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('message').includes('Este email já está sendo usado')
+        })
+    })
 })
