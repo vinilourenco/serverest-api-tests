@@ -72,11 +72,11 @@ describe('Users - List Users', () => {
     })
 
     it('OK - Filtering by non-existing email', () => {
-        const nonExistentEmail = 'inexistent@example.com'
+        const randomEmail = chance.email()
 
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios?email=${nonExistentEmail}`
+            url: `${Cypress.config('baseUrl')}/usuarios?email=${randomEmail}`
         }).then((response) => {
             expect(response.body).to.have.property('usuarios')
                 .that.is.an('array')
@@ -84,7 +84,7 @@ describe('Users - List Users', () => {
         })
     })
 
-    it.only('OK - Filtering by non-existent name', () => {
+    it('OK - Filtering by non-existent name', () => {
         cy.request({
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/usuarios?nome=${randomName}`
@@ -92,6 +92,16 @@ describe('Users - List Users', () => {
             expect(response.body).to.have.property('usuarios')
                 .that.is.an('array')
                 .and.is.empty
+        })
+    })
+
+    it('Bad Request - Invalid param', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/usuarios?invalidParam=value`,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.body).to.have.property('invalidParam').includes('invalidParam não é permitido')
         })
     })
 }) 
