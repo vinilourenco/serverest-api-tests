@@ -6,7 +6,7 @@ describe('Users - Register Users', () => {
     const randomName = chance.name()
     const randomEmail = chance.email()
 
-    it.only('OK - Register user successfully', () => { 
+    it('OK - Register user successfully', () => { 
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/usuarios`,
@@ -21,6 +21,23 @@ describe('Users - Register Users', () => {
             expect(response.body).to.include.all.keys('message', '_id').and.to.satisfy(body => {
                 return body.message.includes('Cadastro realizado com sucesso') && typeof body._id === 'string' && body._id.length > 0
             })
+        })
+    })
+
+    it('Bad Request - Invalid email format', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/usuarios`,
+            body: {
+                nome: `${randomName}`,
+                email: `invalidEmail.com`,
+                password: 'teste',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('email').includes('email deve ser um email válido')
         })
     })
 })
