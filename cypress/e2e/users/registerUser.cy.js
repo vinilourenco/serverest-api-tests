@@ -125,4 +125,20 @@ describe('Users - Register Users', () => {
             expect(response.body).to.have.property('administrador').includes("administrador deve ser 'true' ou 'false'")
         })
     })
+
+    it.only('Bad Request - Registration with the administrator field omitted', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/usuarios`,
+            body: {
+                email: `${randomEmail}`,
+                password: 'teste',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('nome').includes('nome é obrigatório')
+        })
+    })
 })
