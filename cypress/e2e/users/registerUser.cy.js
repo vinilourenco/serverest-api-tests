@@ -173,4 +173,20 @@ describe('Users - Register Users', () => {
             expect(response.body).to.have.property('password').includes('password é obrigatório')
         })
     })
+    
+    it('Bad Request - Registration with the administrador field omitted', () => {
+        cy.request({
+            method: 'POST',
+            url: `${cy.config('baseUrl')}/usuarios`,
+            body: {
+                nome: `${randomName}`,
+                email: `${randomEmail}`,
+                password: 'teste'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('administrador').includes('administrador é obrigatório')
+        })
+    })
 })
