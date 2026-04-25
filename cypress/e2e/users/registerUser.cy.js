@@ -141,4 +141,20 @@ describe('Users - Register Users', () => {
             expect(response.body).to.have.property('nome').includes('nome é obrigatório')
         })
     })
+        
+    it('Bad Request - Registration with the email field omitted', () => {
+        cy.request({
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/usuarios`,
+            body: {
+                nome: `${randomName}`,
+                password: 'teste',
+                administrador: 'false'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('email').includes('email é obrigatório')
+        })
+    })
 })
