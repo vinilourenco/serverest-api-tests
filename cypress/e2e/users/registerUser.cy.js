@@ -126,7 +126,7 @@ describe('Users - Register Users', () => {
         })
     })
 
-    it.only('Bad Request - Registration with the administrator field omitted', () => {
+    it('Bad Request - Registration with the nome field omitted', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/usuarios`,
