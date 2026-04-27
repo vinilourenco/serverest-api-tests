@@ -2,6 +2,7 @@ describe('Users - Get Users', () => {
 
     const defaultId = '0uxuPY0cbmQhpEz1';
     const nonExistentUser = '0uxuPY0cbmQhpEz2';
+    const invalidFormatId = '{ "id": "0uxuPY0cbmQhpEz1" }'
     const longText = Cypress._.repeat('abcdefghijklmnopqrstuvwxyz', 20)
 
     it('OK - Verify that the user is found with a valid ID.', () => {
@@ -55,6 +56,17 @@ describe('Users - Get Users', () => {
         }).then((response) => {
             expect(response.status).to.equal(400)
             expect(response.body).to.have.property('message').includes('Usuário não encontrado')
+        })
+    })
+
+    it('Bad Request - Should return error for an invalid ID format', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/usuarios/${invalidFormatId}`,
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('id').includes('id deve ter exatamente 16 caracteres alfanuméricos')
         })
     })
 })
