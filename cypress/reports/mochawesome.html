@@ -15,15 +15,15 @@
       <div class="container">
         <div class="report-info-cnt">
           <h1 class="report-title">serverest-api-tests</h1>
-          <h3 class="report-date">Friday, April 24 2026, 03:42pm</h3>
+          <h3 class="report-date">Monday, April 27 2026, 01:26pm</h3>
         </div>
         <div class="nav-right">
           <div class="quick-summary-cnt">
               <ul class="list-unstyled quick-summary">
-                <li class="qs-item summary-duration" title="Duration">1.457<span>S</span></li>
+                <li class="qs-item summary-duration" title="Duration">3.238<span>S</span></li>
                 <li class="qs-item summary-suites" title="Suites">1</li>
-                <li class="qs-item summary-tests" title="Tests">3</li>
-                <li class="qs-item summary-passes" title="Passed" data-filter="passed">3</li>
+                <li class="qs-item summary-tests" title="Tests">11</li>
+                <li class="qs-item summary-passes" title="Passed" data-filter="passed">11</li>
                 <li class="qs-item summary-failures" title="Failed" data-filter="failed">0</li>
                 <li class="qs-item summary-pending" title="Pending" data-filter="pending">0</li>
               </ul>          </div>
@@ -37,7 +37,7 @@
       <div class="container">
           <div class="row">
             <div class="summary-col summary-duration">
-              <h1 class="summary-count">1.457<span>S</span></h1>
+              <h1 class="summary-count">3.238<span>S</span></h1>
               <h4 class="summary-label">S</h4>
             </div>
             <div class="summary-col summary-suites" title="Suites">
@@ -45,11 +45,11 @@
               <h4 class="summary-label">Suite</h4>
             </div>
             <div class="summary-col summary-tests" title="Tests">
-              <h1 class="summary-count">3</h1>
+              <h1 class="summary-count">11</h1>
               <h4 class="summary-label">Tests</h4>
             </div>
             <div class="summary-col summary-passes" data-filter="passed" title="Passed">
-              <h1 class="summary-count">3</h1>
+              <h1 class="summary-count">11</h1>
               <h4 class="summary-label">Passed</h4>
             </div>
             <div class="summary-col summary-failures" data-filter="failed" title="Failed">
@@ -73,29 +73,29 @@
     <!-- Suites -->
     <div class="details container">
             <section class="suite-wrap">
-          <div id="6fcefa90-b736-446f-b185-666beb8aab2e" class="suite has-tests has-passed">
+          <div id="9e5b6159-1bdb-4558-8ceb-73132247b554" class="suite has-tests has-passed">
             <h3 class="suite-title">Users - Register Users</h3>
             <h5 class="suite-filename">&nbsp;</h5>
             <!-- Suite Chart -->
             <div class="suite-chart-wrap">
-              <canvas id="6fcefa90-b736-446f-b185-666beb8aab2e" class="suite-chart" width="50" height="50" data-total-passes="3" data-total-failures="0" data-total-pending="0" data-total-skipped="0"></canvas>
+              <canvas id="9e5b6159-1bdb-4558-8ceb-73132247b554" class="suite-chart" width="50" height="50" data-total-passes="11" data-total-failures="0" data-total-pending="0" data-total-skipped="0"></canvas>
             </div>
             <div class="suite-data-wrap">
               <!-- Suite Summary -->
               <ul class="suite-summary list-unstyled">
-                <li class="suite-summary-item duration">1.310 s</li>
-                <li class="suite-summary-item tests">3</li>
-                <li class="suite-summary-item passed">3</li>
+                <li class="suite-summary-item duration">2.365 s</li>
+                <li class="suite-summary-item tests">11</li>
+                <li class="suite-summary-item passed">11</li>
                 <li class="suite-summary-item failed">0</li>
                 <li class="suite-summary-item pending">0</li>
               </ul>
               <!-- Test Info -->
               <div class="suite-test-wrap">
-                <div class="suite-test-header" data-toggle="collapse" data-target="#6fcefa90-b736-446f-b185-666beb8aab2e-test-list">
+                <div class="suite-test-header" data-toggle="collapse" data-target="#9e5b6159-1bdb-4558-8ceb-73132247b554-test-list">
                   <h4 class="suite-test-header-title">Tests</h4>
                 </div>
-                <div id="6fcefa90-b736-446f-b185-666beb8aab2e-test-list" class="list-group test-list collapse in">
-                    <div id="8b8185d3-f278-4c6a-afab-600ecc2a656c" class="list-group-item test passed">
+                <div id="9e5b6159-1bdb-4558-8ceb-73132247b554-test-list" class="list-group test-list collapse in">
+                    <div id="6b59e9cb-3bf1-4908-a8c5-61a023f17edb" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -103,8 +103,8 @@
               OK - Register user successfully
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#8b8185d3-f278-4c6a-afab-600ecc2a656c > .test-code.collapse">Code</button>
-              <span class="test-duration fast">765 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#6b59e9cb-3bf1-4908-a8c5-61a023f17edb > .test-code.collapse">Code</button>
+              <span class="test-duration fast">253 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -113,7 +113,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  }<br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">201</span>);<br>  expect(response.body).to.include.all.keys(<span class="hljs-string">'message'</span>, <span class="hljs-string">'_id'</span>).and.to.satisfy(body =&gt; {<br>    <span class="hljs-keyword">return</span> body.message.includes(<span class="hljs-string">'Cadastro realizado com sucesso'</span>) &amp;&amp; <span class="hljs-keyword">typeof</span> body._id === <span class="hljs-string">'string'</span> &amp;&amp; body._id.length &gt; <span class="hljs-number">0</span>;<br>  });<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="4987219a-7f8a-4e9a-9b2a-eac244a6ea11" class="list-group-item test passed">
+        </div>            <div id="c6978b62-0772-4b2d-adc6-31fa010d5cff" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -121,8 +121,8 @@
               Bad Request - Invalid email format
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#4987219a-7f8a-4e9a-9b2a-eac244a6ea11 > .test-code.collapse">Code</button>
-              <span class="test-duration fast">340 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#c6978b62-0772-4b2d-adc6-31fa010d5cff > .test-code.collapse">Code</button>
+              <span class="test-duration fast">222 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -131,7 +131,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`invalidEmail.com`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'email'</span>).includes(<span class="hljs-string">'email deve ser um email válido'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="3e5b6987-6146-4c8b-80d9-e319d6dd41bc" class="list-group-item test passed">
+        </div>            <div id="870b42ac-cd20-4d6e-b8d3-9f5df6ad809d" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -139,14 +139,158 @@
               Bad Request - Should return error when email is already taken
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#3e5b6987-6146-4c8b-80d9-e319d6dd41bc > .test-code.collapse">Code</button>
-              <span class="test-duration fast">205 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#870b42ac-cd20-4d6e-b8d3-9f5df6ad809d > .test-code.collapse">Code</button>
+              <span class="test-duration fast">225 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
           <!-- Test Code -->
           <div class="test-code collapse">
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">'fulano@qa.com'</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'message'</span>).includes(<span class="hljs-string">'Este email já está sendo usado'</span>);<br>});</code></pre>
+          </div>
+          <!-- Test Error Stack -->
+        </div>            <div id="7e6773ff-dfe5-4fe0-ab5f-e8e731ea3086" class="list-group-item test passed">
+          <!-- Test Heading -->
+          <div class="test-heading">
+            <h4 class="test-title">
+              <span class="text-muted hidden"> it </span>
+              Bad Request - Should return error when name field is missing
+            </h4>
+            <div class="pull-right">
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#7e6773ff-dfe5-4fe0-ab5f-e8e731ea3086 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">214 ms</span>
+            </div>
+          </div>
+          <!-- Test Errors -->
+          <!-- Test Code -->
+          <div class="test-code collapse">
+            <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">''</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'nome'</span>).includes(<span class="hljs-string">'nome não pode ficar em branco'</span>);<br>});</code></pre>
+          </div>
+          <!-- Test Error Stack -->
+        </div>            <div id="af7453b9-7851-462d-bb50-fafc6afcbd41" class="list-group-item test passed">
+          <!-- Test Heading -->
+          <div class="test-heading">
+            <h4 class="test-title">
+              <span class="text-muted hidden"> it </span>
+              Bad Request - Should return error when email field is missing
+            </h4>
+            <div class="pull-right">
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#af7453b9-7851-462d-bb50-fafc6afcbd41 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">203 ms</span>
+            </div>
+          </div>
+          <!-- Test Errors -->
+          <!-- Test Code -->
+          <div class="test-code collapse">
+            <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">''</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'email'</span>).includes(<span class="hljs-string">'email não pode ficar em branco'</span>);<br>});</code></pre>
+          </div>
+          <!-- Test Error Stack -->
+        </div>            <div id="1217f200-982a-4114-8da1-09c4d5ebe4f7" class="list-group-item test passed">
+          <!-- Test Heading -->
+          <div class="test-heading">
+            <h4 class="test-title">
+              <span class="text-muted hidden"> it </span>
+              Bad Request - Should return error when password field is missing
+            </h4>
+            <div class="pull-right">
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#1217f200-982a-4114-8da1-09c4d5ebe4f7 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">194 ms</span>
+            </div>
+          </div>
+          <!-- Test Errors -->
+          <!-- Test Code -->
+          <div class="test-code collapse">
+            <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">''</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'password'</span>).includes(<span class="hljs-string">'password não pode ficar em branco'</span>);<br>});</code></pre>
+          </div>
+          <!-- Test Error Stack -->
+        </div>            <div id="47ef1986-b045-48ad-8261-3f4f42fbf909" class="list-group-item test passed">
+          <!-- Test Heading -->
+          <div class="test-heading">
+            <h4 class="test-title">
+              <span class="text-muted hidden"> it </span>
+              Bad Request - Should return error when administrator field is missing
+            </h4>
+            <div class="pull-right">
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#47ef1986-b045-48ad-8261-3f4f42fbf909 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">212 ms</span>
+            </div>
+          </div>
+          <!-- Test Errors -->
+          <!-- Test Code -->
+          <div class="test-code collapse">
+            <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">''</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'administrador'</span>).includes(<span class="hljs-string">"administrador deve ser 'true' ou 'false'"</span>);<br>});</code></pre>
+          </div>
+          <!-- Test Error Stack -->
+        </div>            <div id="fefe3120-c690-43ba-bb04-3a210c9cc933" class="list-group-item test passed">
+          <!-- Test Heading -->
+          <div class="test-heading">
+            <h4 class="test-title">
+              <span class="text-muted hidden"> it </span>
+              Bad Request - Registration with the nome field omitted
+            </h4>
+            <div class="pull-right">
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#fefe3120-c690-43ba-bb04-3a210c9cc933 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">201 ms</span>
+            </div>
+          </div>
+          <!-- Test Errors -->
+          <!-- Test Code -->
+          <div class="test-code collapse">
+            <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'nome'</span>).includes(<span class="hljs-string">'nome é obrigatório'</span>);<br>});</code></pre>
+          </div>
+          <!-- Test Error Stack -->
+        </div>            <div id="033dbcd5-c9d0-4e16-88f7-c6c6abb373ac" class="list-group-item test passed">
+          <!-- Test Heading -->
+          <div class="test-heading">
+            <h4 class="test-title">
+              <span class="text-muted hidden"> it </span>
+              Bad Request - Registration with the email field omitted
+            </h4>
+            <div class="pull-right">
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#033dbcd5-c9d0-4e16-88f7-c6c6abb373ac > .test-code.collapse">Code</button>
+              <span class="test-duration fast">220 ms</span>
+            </div>
+          </div>
+          <!-- Test Errors -->
+          <!-- Test Code -->
+          <div class="test-code collapse">
+            <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'false'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'email'</span>).includes(<span class="hljs-string">'email é obrigatório'</span>);<br>});</code></pre>
+          </div>
+          <!-- Test Error Stack -->
+        </div>            <div id="8f0ca4d4-db7e-4c67-ab03-e9ab1e232a50" class="list-group-item test passed">
+          <!-- Test Heading -->
+          <div class="test-heading">
+            <h4 class="test-title">
+              <span class="text-muted hidden"> it </span>
+              Bad Request - Registration with the password field omitted
+            </h4>
+            <div class="pull-right">
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#8f0ca4d4-db7e-4c67-ab03-e9ab1e232a50 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">217 ms</span>
+            </div>
+          </div>
+          <!-- Test Errors -->
+          <!-- Test Code -->
+          <div class="test-code collapse">
+            <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${cy.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'password'</span>).includes(<span class="hljs-string">'password é obrigatório'</span>);<br>});</code></pre>
+          </div>
+          <!-- Test Error Stack -->
+        </div>            <div id="a11b32df-d557-410e-8935-78697cdec688" class="list-group-item test passed">
+          <!-- Test Heading -->
+          <div class="test-heading">
+            <h4 class="test-title">
+              <span class="text-muted hidden"> it </span>
+              Bad Request - Registration with the administrador field omitted
+            </h4>
+            <div class="pull-right">
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#a11b32df-d557-410e-8935-78697cdec688 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">204 ms</span>
+            </div>
+          </div>
+          <!-- Test Errors -->
+          <!-- Test Code -->
+          <div class="test-code collapse">
+            <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${cy.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'administrador'</span>).includes(<span class="hljs-string">'administrador é obrigatório'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
         </div>        </div>
@@ -171,7 +315,7 @@
         <button class="nav-menu-btn close-menu"><i class="icon-failed"></i></button>
         <ul class="list-unstyled main-menu">
                 <li class="nav-menu-item">
-                <a href="#6fcefa90-b736-446f-b185-666beb8aab2e" class="nav-menu-item-link has-passes">Users - Register Users</a>
+                <a href="#9e5b6159-1bdb-4558-8ceb-73132247b554" class="nav-menu-item-link has-passes">Users - Register Users</a>
             </li>
         </ul>
       </nav>
