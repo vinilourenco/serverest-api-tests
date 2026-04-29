@@ -15,12 +15,12 @@
       <div class="container">
         <div class="report-info-cnt">
           <h1 class="report-title">serverest-api-tests</h1>
-          <h3 class="report-date">Tuesday, April 28 2026, 09:09pm</h3>
+          <h3 class="report-date">Tuesday, April 28 2026, 09:21pm</h3>
         </div>
         <div class="nav-right">
           <div class="quick-summary-cnt">
               <ul class="list-unstyled quick-summary">
-                <li class="qs-item summary-duration" title="Duration">888<span>MS</span></li>
+                <li class="qs-item summary-duration" title="Duration">782<span>MS</span></li>
                 <li class="qs-item summary-suites" title="Suites">1</li>
                 <li class="qs-item summary-tests" title="Tests">11</li>
                 <li class="qs-item summary-passes" title="Passed" data-filter="passed">11</li>
@@ -37,7 +37,7 @@
       <div class="container">
           <div class="row">
             <div class="summary-col summary-duration">
-              <h1 class="summary-count">888<span>MS</span></h1>
+              <h1 class="summary-count">782<span>MS</span></h1>
               <h4 class="summary-label">MS</h4>
             </div>
             <div class="summary-col summary-suites" title="Suites">
@@ -73,17 +73,17 @@
     <!-- Suites -->
     <div class="details container">
             <section class="suite-wrap">
-          <div id="14fa36fa-6e3c-4282-b4ee-228f0a295fe8" class="suite has-tests has-passed">
+          <div id="87e6f0c1-3757-4bc6-bb37-bb748f3ca55b" class="suite has-tests has-passed">
             <h3 class="suite-title">Users - Register Users</h3>
             <h5 class="suite-filename">&nbsp;</h5>
             <!-- Suite Chart -->
             <div class="suite-chart-wrap">
-              <canvas id="14fa36fa-6e3c-4282-b4ee-228f0a295fe8" class="suite-chart" width="50" height="50" data-total-passes="11" data-total-failures="0" data-total-pending="0" data-total-skipped="0"></canvas>
+              <canvas id="87e6f0c1-3757-4bc6-bb37-bb748f3ca55b" class="suite-chart" width="50" height="50" data-total-passes="11" data-total-failures="0" data-total-pending="0" data-total-skipped="0"></canvas>
             </div>
             <div class="suite-data-wrap">
               <!-- Suite Summary -->
               <ul class="suite-summary list-unstyled">
-                <li class="suite-summary-item duration">518 ms</li>
+                <li class="suite-summary-item duration">460 ms</li>
                 <li class="suite-summary-item tests">11</li>
                 <li class="suite-summary-item passed">11</li>
                 <li class="suite-summary-item failed">0</li>
@@ -91,11 +91,11 @@
               </ul>
               <!-- Test Info -->
               <div class="suite-test-wrap">
-                <div class="suite-test-header" data-toggle="collapse" data-target="#14fa36fa-6e3c-4282-b4ee-228f0a295fe8-test-list">
+                <div class="suite-test-header" data-toggle="collapse" data-target="#87e6f0c1-3757-4bc6-bb37-bb748f3ca55b-test-list">
                   <h4 class="suite-test-header-title">Tests</h4>
                 </div>
-                <div id="14fa36fa-6e3c-4282-b4ee-228f0a295fe8-test-list" class="list-group test-list collapse in">
-                    <div id="5c06c017-8f9e-4252-9089-33e35a78a0ef" class="list-group-item test passed">
+                <div id="87e6f0c1-3757-4bc6-bb37-bb748f3ca55b-test-list" class="list-group test-list collapse in">
+                    <div id="3a1298a9-ab53-4e91-9260-8f7f102924b6" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -103,8 +103,8 @@
               OK - Register user successfully
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#5c06c017-8f9e-4252-9089-33e35a78a0ef > .test-code.collapse">Code</button>
-              <span class="test-duration fast">112 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#3a1298a9-ab53-4e91-9260-8f7f102924b6 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">78 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -113,7 +113,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  }<br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">201</span>);<br>  expect(response.body).to.include.all.keys(<span class="hljs-string">'message'</span>, <span class="hljs-string">'_id'</span>).and.to.satisfy(body =&gt; {<br>    <span class="hljs-keyword">return</span> body.message.includes(<span class="hljs-string">'Cadastro realizado com sucesso'</span>) &amp;&amp; <span class="hljs-keyword">typeof</span> body._id === <span class="hljs-string">'string'</span> &amp;&amp; body._id.length &gt; <span class="hljs-number">0</span>;<br>  });<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="e2bc927c-7528-4602-a485-ee6f01abb8df" class="list-group-item test passed">
+        </div>            <div id="ce7983ac-3d4f-4b15-a1f4-03e9bc5b70b3" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -121,8 +121,8 @@
               Bad Request - Invalid email format
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#e2bc927c-7528-4602-a485-ee6f01abb8df > .test-code.collapse">Code</button>
-              <span class="test-duration fast">44 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#ce7983ac-3d4f-4b15-a1f4-03e9bc5b70b3 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">39 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -131,7 +131,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`invalidEmail.com`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'email'</span>).includes(<span class="hljs-string">'email deve ser um email válido'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="c2f20a49-df4f-4f5a-b83b-2dfd6094bb05" class="list-group-item test passed">
+        </div>            <div id="a490e627-ab8f-442d-9fdd-6eaa6ab17505" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -139,8 +139,8 @@
               Bad Request - Should return error when email is already taken
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#c2f20a49-df4f-4f5a-b83b-2dfd6094bb05 > .test-code.collapse">Code</button>
-              <span class="test-duration fast">40 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#a490e627-ab8f-442d-9fdd-6eaa6ab17505 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">38 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -149,7 +149,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">'fulano@qa.com'</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'message'</span>).includes(<span class="hljs-string">'Este email já está sendo usado'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="0697906a-b5b6-4511-a796-0137c084bf09" class="list-group-item test passed">
+        </div>            <div id="d9b813c5-9356-416a-aed5-44dc0b93376e" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -157,8 +157,8 @@
               Bad Request - Should return error when name field is missing
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#0697906a-b5b6-4511-a796-0137c084bf09 > .test-code.collapse">Code</button>
-              <span class="test-duration fast">38 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#d9b813c5-9356-416a-aed5-44dc0b93376e > .test-code.collapse">Code</button>
+              <span class="test-duration fast">35 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -167,7 +167,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">''</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'nome'</span>).includes(<span class="hljs-string">'nome não pode ficar em branco'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="b52cf554-0201-408c-aea9-8c786057023b" class="list-group-item test passed">
+        </div>            <div id="c7beb9d4-a427-4ddc-b96f-95351a32eead" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -175,8 +175,8 @@
               Bad Request - Should return error when email field is missing
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#b52cf554-0201-408c-aea9-8c786057023b > .test-code.collapse">Code</button>
-              <span class="test-duration fast">40 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#c7beb9d4-a427-4ddc-b96f-95351a32eead > .test-code.collapse">Code</button>
+              <span class="test-duration fast">35 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -185,7 +185,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">''</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'email'</span>).includes(<span class="hljs-string">'email não pode ficar em branco'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="c36d209e-eb57-408b-93a6-ff7ed0fd0398" class="list-group-item test passed">
+        </div>            <div id="0ace5fbc-33d9-4c35-b837-950e3bc2fb6b" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -193,7 +193,7 @@
               Bad Request - Should return error when password field is missing
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#c36d209e-eb57-408b-93a6-ff7ed0fd0398 > .test-code.collapse">Code</button>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#0ace5fbc-33d9-4c35-b837-950e3bc2fb6b > .test-code.collapse">Code</button>
               <span class="test-duration fast">51 ms</span>
             </div>
           </div>
@@ -203,7 +203,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">''</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'password'</span>).includes(<span class="hljs-string">'password não pode ficar em branco'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="67791fc2-2a8d-46fc-a4c0-75ec482dc621" class="list-group-item test passed">
+        </div>            <div id="19594085-1f23-49de-8ffc-4d43148f4d7f" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -211,7 +211,7 @@
               Bad Request - Should return error when administrator field is missing
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#67791fc2-2a8d-46fc-a4c0-75ec482dc621 > .test-code.collapse">Code</button>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#19594085-1f23-49de-8ffc-4d43148f4d7f > .test-code.collapse">Code</button>
               <span class="test-duration fast">36 ms</span>
             </div>
           </div>
@@ -221,7 +221,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">''</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'administrador'</span>).includes(<span class="hljs-string">"administrador deve ser 'true' ou 'false'"</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="75c51895-9c5d-428c-9185-99c8d84f3b51" class="list-group-item test passed">
+        </div>            <div id="2e486700-afa5-4003-8319-3138827ec923" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -229,8 +229,8 @@
               Bad Request - Registration with the nome field omitted
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#75c51895-9c5d-428c-9185-99c8d84f3b51 > .test-code.collapse">Code</button>
-              <span class="test-duration fast">38 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#2e486700-afa5-4003-8319-3138827ec923 > .test-code.collapse">Code</button>
+              <span class="test-duration fast">28 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -239,7 +239,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'nome'</span>).includes(<span class="hljs-string">'nome é obrigatório'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="92132933-0513-487f-8bf8-f059f7459c80" class="list-group-item test passed">
+        </div>            <div id="68e6529c-d005-4b79-b4b2-99af5fb38dee" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -247,8 +247,8 @@
               Bad Request - Registration with the email field omitted
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#92132933-0513-487f-8bf8-f059f7459c80 > .test-code.collapse">Code</button>
-              <span class="test-duration fast">45 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#68e6529c-d005-4b79-b4b2-99af5fb38dee > .test-code.collapse">Code</button>
+              <span class="test-duration fast">31 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -257,7 +257,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${Cypress.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    password: <span class="hljs-string">'teste'</span>,<br>    administrador: <span class="hljs-string">'false'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'email'</span>).includes(<span class="hljs-string">'email é obrigatório'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="dd7b5620-9266-4812-8913-47dce7c5505f" class="list-group-item test passed">
+        </div>            <div id="7f07754a-9145-4839-92c7-a44d919054ec" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -265,8 +265,8 @@
               Bad Request - Registration with the password field omitted
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#dd7b5620-9266-4812-8913-47dce7c5505f > .test-code.collapse">Code</button>
-              <span class="test-duration fast">37 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#7f07754a-9145-4839-92c7-a44d919054ec > .test-code.collapse">Code</button>
+              <span class="test-duration fast">56 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -275,7 +275,7 @@
             <pre><code class="hljs javascript small">cy.request({<br>  method: <span class="hljs-string">'POST'</span>,<br>  url: <span class="hljs-string">`<span class="hljs-subst">${cy.config('baseUrl')}</span>/usuarios`</span>,<br>  body: {<br>    nome: <span class="hljs-string">`<span class="hljs-subst">${randomName}</span>`</span>,<br>    email: <span class="hljs-string">`<span class="hljs-subst">${randomEmail}</span>`</span>,<br>    administrador: <span class="hljs-string">'true'</span><br>  },<br>  failOnStatusCode: <span class="hljs-literal">false</span><br>}).then(response =&gt; {<br>  expect(response.status).to.equal(<span class="hljs-number">400</span>);<br>  expect(response.body).to.have.property(<span class="hljs-string">'password'</span>).includes(<span class="hljs-string">'password é obrigatório'</span>);<br>});</code></pre>
           </div>
           <!-- Test Error Stack -->
-        </div>            <div id="065cf47c-42bd-4d99-9140-804f78f6943b" class="list-group-item test passed">
+        </div>            <div id="d921287f-3d39-455f-a64e-dcc7ff55a02f" class="list-group-item test passed">
           <!-- Test Heading -->
           <div class="test-heading">
             <h4 class="test-title">
@@ -283,8 +283,8 @@
               Bad Request - Registration with the administrador field omitted
             </h4>
             <div class="pull-right">
-              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#065cf47c-42bd-4d99-9140-804f78f6943b > .test-code.collapse">Code</button>
-              <span class="test-duration fast">37 ms</span>
+              <button class="btn btn-link btn-sm toggle-btn toggle-code collapsed" data-toggle="collapse" data-target="#d921287f-3d39-455f-a64e-dcc7ff55a02f > .test-code.collapse">Code</button>
+              <span class="test-duration fast">33 ms</span>
             </div>
           </div>
           <!-- Test Errors -->
@@ -315,7 +315,7 @@
         <button class="nav-menu-btn close-menu"><i class="icon-failed"></i></button>
         <ul class="list-unstyled main-menu">
                 <li class="nav-menu-item">
-                <a href="#14fa36fa-6e3c-4282-b4ee-228f0a295fe8" class="nav-menu-item-link has-passes">Users - Register Users</a>
+                <a href="#87e6f0c1-3757-4bc6-bb37-bb748f3ca55b" class="nav-menu-item-link has-passes">Users - Register Users</a>
             </li>
         </ul>
       </nav>
