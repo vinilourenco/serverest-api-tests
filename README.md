@@ -56,14 +56,16 @@ Once the local server is active, you can execute the tests using one of the foll
 
 ### Desktop GUI (Interactive Mode)
 
-Best for development, debugging, and visual tracking:
-```bash
-npm run cy:open
+- Best for development, debugging, and visual tracking:
+  ```bash
+  npm run cy:open
+  ```
 
 ### Headless Mode (CLI)
 
-Best for fast execution and CI/CD pipelines:
-```bash
-npx cypress run
+- Best for fast execution and CI/CD pipelines:
+  ```bash
+  npx cypress run
+  ```
 
 [![Badge ServeRest](https://img.shields.io/badge/API-ServeRest-green)](https://github.com/ServeRest/ServeRest/)
