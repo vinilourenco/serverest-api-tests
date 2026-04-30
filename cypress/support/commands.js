@@ -23,3 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('registerUser', (nome, email, password = 'teste', administrador = 'true') => {
+    cy.request({
+        method: 'POST',
+        url: `${Cypress.config('baseUrl')}/usuarios`,
+        body: {
+            nome,
+            email,
+            password,
+            administrador
+        }
+    })
+})
