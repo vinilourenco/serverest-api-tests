@@ -5,14 +5,22 @@ describe('Users - Register Users', () => {
     const chance = new Chance()
     let randomName
     let randomEmail
+    let userId
 
     beforeEach(() => {
         randomName = chance.name()
         randomEmail = chance.email()
     })
+
+    afterEach(() => {
+        if (userId) {
+            cy.request('DELETE', `${Cypress.config('baseUrl')}/usuarios/${userId}`)
+        }
+    })
     
     it('OK - Register user successfully', () => { 
         cy.registerUser(randomName, randomEmail).then((response) => {
+            userId = response.body._id
             expect(response.status).to.equal(201)
             expect(response.body).to.include.all.keys('message', '_id').and.to.satisfy(body => {
                 return body.message.includes('Cadastro realizado com sucesso') && typeof body._id === 'string' && body._id.length > 0
