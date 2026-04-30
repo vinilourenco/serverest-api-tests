@@ -28,46 +28,66 @@ describe('Users - Register Users', () => {
         })
     })
 
-    it('Bad Request - Invalid email format', () => {
-        cy.request({
-            method: 'POST',
-            url: `${Cypress.config('baseUrl')}/usuarios`,
-            body: {
-                nome: `${randomName}`,
-                email: `invalidEmail.com`,
-                password: 'teste',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('email').includes('email deve ser um email válido')
-        })
-    })
-
-    it('Bad Request - Should return error when email is already taken', () => {
-        cy.request({
-            method: 'POST',
-            url: `${Cypress.config('baseUrl')}/usuarios`,
-            body: {
-                nome: `${randomName}`,
-                email: 'fulano@qa.com',
-                password: 'teste',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('message').includes('Este email já está sendo usado')
-        })
-    })
-
-    const errorCases = [
+    const errorCases = [ 
+        {
+            description: 'invalid email format',
+            body: { nome: `${randomName}`, email: 'invalidEmail.com', password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'email deve ser um email válido' },
+            property: 'email'
+        },
+        {
+            description: 'email already taken',
+            body: { nome: `${randomName}`, email: 'fulano@qa.com', password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'Este email já está sendo usado' },
+            property: 'message'
+        },
         {
             description: 'name field is missing',
             body: { nome: '', email: `${randomEmail}`, password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'nome não pode ficar em branco' },
             property: 'nome'
+        },
+        {
+            description: 'email field is missing',
+            body: { nome: `${randomName}`, email: '', password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'email não pode ficar em branco' },
+            property: 'email'
+        },
+        {
+            description: 'password field is missing',
+            body: { nome: `${randomName}`, email: `${randomEmail}`, password: '', administrador: 'true' },
+            expected: { status: 400, message: 'password não pode ficar em branco' },
+            property: 'password'
+        },
+        {
+            description: 'administrator field is missing',
+            body: { nome: `${randomName}`, email: `${randomEmail}`, password: 'teste', administrador: '' },
+            expected: { status: 400, message: "administrador deve ser 'true' ou 'false'" },
+            property: 'administrador'
+        },
+        {
+            description: 'nome field omitted',
+            body: { email: `${randomEmail}`, password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'nome é obrigatório'},
+            property: 'nome'
+        },
+        {
+            description: 'email field omitted',
+            body: { nome: `${randomName}`, password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'email é obrigatório'},
+            property: 'email'
+        },
+        {
+            description: 'password field omitted',
+            body: { nome: `${randomName}`, email: `${randomEmail}`, administrador: 'true' },
+            expected: { status: 400, message: 'password é obrigatório'},
+            property: 'password'
+        },
+        {
+            description: 'administrador field omitted',
+            body: { nome: `${randomName}`, email: `${randomEmail}`, password: 'true' },
+            expected: { status: 400, message: 'administrador é obrigatório'},
+            property: 'administrador'
         }
     ]
 
@@ -82,138 +102,6 @@ describe('Users - Register Users', () => {
                 expect(response.status).to.equal(expected.status)
                 expect(response.body).to.have.property(property).includes(expected.message)
             })
-        })
-    })
-
-    // it('Bad Request - Should return error when name field is missing', () => {
-    //     cy.request({
-    //         method: 'POST',
-    //         url: `${Cypress.config('baseUrl')}/usuarios`,
-    //         body: {
-    //             nome: '',
-    //             email: `${randomEmail}`,
-    //             password: 'teste',
-    //             administrador: 'true'
-    //         },
-    //         failOnStatusCode: false
-    //     }).then((response) => {
-    //         expect(response.status).to.equal(400)
-    //         expect(response.body).to.have.property('nome').includes('nome não pode ficar em branco')
-    //     })
-    // })
-
-    it('Bad Request - Should return error when email field is missing', () => {
-        cy.request({
-            method: 'POST',
-            url: `${Cypress.config('baseUrl')}/usuarios`,
-            body: {
-                nome: `${randomName}`,
-                email: '',
-                password: 'teste',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('email').includes('email não pode ficar em branco')
-        })
-    })
-
-    it('Bad Request - Should return error when password field is missing', () => {
-        cy.request({
-            method: 'POST',
-            url: `${Cypress.config('baseUrl')}/usuarios`,
-            body: {
-                nome: `${randomName}`,
-                email: `${randomEmail}`,
-                password: '',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('password').includes('password não pode ficar em branco')
-        })
-    })
-
-    it('Bad Request - Should return error when administrator field is missing', () => {
-        cy.request({
-            method: 'POST',
-            url: `${Cypress.config('baseUrl')}/usuarios`,
-            body: {
-                nome: `${randomName}`,
-                email: `${randomEmail}`,
-                password: 'teste',
-                administrador: ''
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('administrador').includes("administrador deve ser 'true' ou 'false'")
-        })
-    })
-
-    it('Bad Request - Registration with the nome field omitted', () => {
-        cy.request({
-            method: 'POST',
-            url: `${Cypress.config('baseUrl')}/usuarios`,
-            body: {
-                email: `${randomEmail}`,
-                password: 'teste',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('nome').includes('nome é obrigatório')
-        })
-    })
-
-    it('Bad Request - Registration with the email field omitted', () => {
-        cy.request({
-            method: 'POST',
-            url: `${Cypress.config('baseUrl')}/usuarios`,
-            body: {
-                nome: `${randomName}`,
-                password: 'teste',
-                administrador: 'false'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('email').includes('email é obrigatório')
-        })
-    })
-
-    it('Bad Request - Registration with the password field omitted', () => {
-        cy.request({
-            method: 'POST',
-            url: `${cy.config('baseUrl')}/usuarios`,
-            body: {
-                nome: `${randomName}`,
-                email: `${randomEmail}`,
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('password').includes('password é obrigatório')
-        })
-    })
-    
-    it('Bad Request - Registration with the administrador field omitted', () => {
-        cy.request({
-            method: 'POST',
-            url: `${cy.config('baseUrl')}/usuarios`,
-            body: {
-                nome: `${randomName}`,
-                email: `${randomEmail}`,
-                password: 'teste'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('administrador').includes('administrador é obrigatório')
         })
     })
 })
