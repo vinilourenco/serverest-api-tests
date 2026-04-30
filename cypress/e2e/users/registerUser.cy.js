@@ -62,22 +62,45 @@ describe('Users - Register Users', () => {
         })
     })
 
-    it('Bad Request - Should return error when name field is missing', () => {
-        cy.request({
-            method: 'POST',
-            url: `${Cypress.config('baseUrl')}/usuarios`,
-            body: {
-                nome: '',
-                email: `${randomEmail}`,
-                password: 'teste',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('nome').includes('nome não pode ficar em branco')
+    const errorCases = [
+        {
+            description: 'name field is missing',
+            body: { nome: '', email: `${randomEmail}`, password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'nome não pode ficar em branco' },
+            property: 'nome'
+        }
+    ]
+
+    errorCases.forEach(({ description, body, expected, property }) => {
+        it(`Bad Request - Should return error when ${description}`, () => {
+            cy.request({
+                method: 'POST',
+                url: `${Cypress.config('baseUrl')}/usuarios`,
+                body,
+                failOnStatusCode: false
+            }).then((response) => {
+                expect(response.status).to.equal(expected.status)
+                expect(response.body).to.have.property(property).includes(expected.message)
+            })
         })
     })
+
+    // it('Bad Request - Should return error when name field is missing', () => {
+    //     cy.request({
+    //         method: 'POST',
+    //         url: `${Cypress.config('baseUrl')}/usuarios`,
+    //         body: {
+    //             nome: '',
+    //             email: `${randomEmail}`,
+    //             password: 'teste',
+    //             administrador: 'true'
+    //         },
+    //         failOnStatusCode: false
+    //     }).then((response) => {
+    //         expect(response.status).to.equal(400)
+    //         expect(response.body).to.have.property('nome').includes('nome não pode ficar em branco')
+    //     })
+    // })
 
     it('Bad Request - Should return error when email field is missing', () => {
         cy.request({
