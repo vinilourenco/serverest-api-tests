@@ -3,9 +3,14 @@ const Chance = require('chance');
 describe('Users - Register Users', () => {
 
     const chance = new Chance()
-    const randomName = chance.name()
-    const randomEmail = chance.email()
+    let randomName
+    let randomEmail
 
+    beforeEach(() => {
+        randomName = chance.name()
+        randomEmail = chance.email()
+    })
+    
     it('OK - Register user successfully', () => { 
         cy.request({
             method: 'POST',
