@@ -15,36 +15,34 @@ describe('Users - Get Users', () => {
         })
     })
 
-    it('Bad Request - Should return error if ID param is empty', () => {
-        cy.request({
-            method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios/:id`,
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('id').includes('id deve ter exatamente 16 caracteres alfanuméricos')
-        })
-    })
+    const errorCases = [
+        {
+            description: 'ID param is empty',
+            expected: { status: 400, message: 'id deve ter exatamente 16 caracteres alfanuméricos' },
+            property: 'id'
+        },
+        {
+            description: 'ID param has minimum value',
+            expected: { status: 400, message: 'id deve ter exatamente 16 caracteres alfanuméricos' },
+            property: 'id'
+        },
+        {
+            description: 'strings that exceeds the normal length',
+            expected: { status: 400, message: 'id deve ter exatamente 16 caracteres alfanuméricos' },
+            property: 'id'
+        }
+    ]
 
-    it('Bad Request - Should return error if ID param has minimum value', () => {
-        cy.request({
-            method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios/a`,
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('id').includes('id deve ter exatamente 16 caracteres alfanuméricos')
-        })
-    })
-
-    it('Bad Request - Should return error for strings that exceeds the normal length', () => {
-        cy.request({
-            method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios/${longText}`,
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('id').includes('id deve ter exatamente 16 caracteres alfanuméricos')
+    errorCases.forEach(({ description, expected, property }) => {
+        it(`Bad Request - Should return error if ${description}`, () => {
+            cy.request({
+                method: 'GET',
+                url: `${Cypress.config('baseUrl')}/usuarios/:id`,
+                failOnStatusCode: false
+            }).then((response) => {
+                expect(response.status).to.equal(expected.status)
+                expect(response.body).to.have.property(property).includes(expected.message)
+            })
         })
     })
 
