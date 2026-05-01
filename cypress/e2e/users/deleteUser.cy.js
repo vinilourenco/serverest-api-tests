@@ -2,6 +2,7 @@ const Chance = require('chance')
 
 describe('User - Delete User', () => {
 
+    const chance = new Chance()
     const defaultId = '0uxuPY0cbmQhpEz1';
     const nonExistentUser = '0uxuPY0cbmQhpEz2';
     let randomName;
@@ -13,7 +14,7 @@ describe('User - Delete User', () => {
         randomEmail = chance.email()
     })
 
-    it.only('OK - Should return status code 200 when deleting an user', () => {
+    it('OK - Should return status code 200 when deleting an user', () => {
         cy.registerUser(randomName, randomEmail)
             .then((response) => {
                 expect(response.status).to.equal(201)
