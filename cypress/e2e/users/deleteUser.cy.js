@@ -1,7 +1,34 @@
+const Chance = require('chance')
+
 describe('User - Delete User', () => {
 
     const defaultId = '0uxuPY0cbmQhpEz1';
     const nonExistentUser = '0uxuPY0cbmQhpEz2';
+    let randomName;
+    let randomEmail;
+    let userId;
+
+    beforeEach(() => {
+        randomName = chance.name()
+        randomEmail = chance.email()
+    })
+
+    it.only('OK - Should return status code 200 when deleting an user', () => {
+        cy.registerUser(randomName, randomEmail)
+            .then((response) => {
+                expect(response.status).to.equal(201)
+                userId = response.body._id
+            })
+        cy.then(() => {
+            cy.request({
+                method: 'DELETE',
+                url: `${Cypress.config('baseUrl')}/usuarios/${userId}`
+            }).then((response) => {
+                expect(response.status).to.equal(200)
+                expect(response.body.message).to.equal('Registro excluído com sucesso')
+            })
+        })
+    })
 
     it('OK - Should return status code 200 when deleting a non-existent user', () => {
         cy.request({
