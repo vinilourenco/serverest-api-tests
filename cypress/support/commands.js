@@ -43,3 +43,16 @@ Cypress.Commands.add('deleteUser', (id) => {
         url: `${Cypress.config('baseUrl')}/usuarios/${id}`
     })
 })
+
+Cypress.Commands.add('editUser', (id, nome, email, password, administrador) => {
+    return cy.request({
+        method: 'PUT',
+        url: `${Cypress.config('baseUrl')}/usuarios/${id}`,
+        body: {
+            nome,
+            email,
+            password,
+            administrador   
+        }
+    })
+})
