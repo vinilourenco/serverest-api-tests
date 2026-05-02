@@ -70,5 +70,9 @@ describe('Users - Edit User', () => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
         })
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
+        })
     })
 })
