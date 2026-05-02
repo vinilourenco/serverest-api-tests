@@ -43,7 +43,7 @@ describe('Users - Edit User', () => {
         })
     })
 
-    it.only('OK - Should return status code 201 and create a new user when updating unknown valid ID', () => {
+    it('OK - Should return status code 201 and create a new user when updating unknown valid ID', () => {
         cy.request({
             method: 'PUT',
             url: `${Cypress.config('baseUrl')}/usuarios/${defaultId2}`,
@@ -62,6 +62,13 @@ describe('Users - Edit User', () => {
                     && body._id.length > 0
             })
             cy.deleteUser(newId)
+        })
+    })
+
+    it.only('OK - Should update user keeping the same email', () => {
+        cy.editUser(`${defaultId}`, 'Nome Modificado', 'fulano@qa.com', 'novasenha123', 'true').then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
         })
     })
 })
