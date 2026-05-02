@@ -4,9 +4,11 @@ describe('Users - Edit User', () => {
 
     const chance = new Chance()
     const defaultId = '0uxuPY0cbmQhpEz1'
+    const defaultId2 = '0uxuPY0cbmQhpEz2'
     let randomName
     let randomEmail
     let userId
+    let newId
 
     beforeEach(() => {
         randomName = chance.name()
@@ -21,11 +23,7 @@ describe('Users - Edit User', () => {
 
     afterEach(() => {
         if (userId) {
-            cy.request({
-                method: 'DELETE', 
-                url: `${Cypress.config('baseUrl')}/usuarios/${userId}`,
-                failOnStatusCode: false
-            })
+            cy.deleteUser(userId)
         }
     })
 
@@ -41,6 +39,29 @@ describe('Users - Edit User', () => {
             }
         }).then((response) => {
             expect(response.status).to.eq(200)
+            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
+        })
+    })
+
+    it.only('OK - Should return status code 201 and create a new user when updating unknown valid ID', () => {
+        cy.request({
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId2}`,
+            body: {
+                nome: 'Novo Usuário',
+                email: 'newuser@qa.com',
+                password: 'novasenha123',
+                administrador: 'true'
+            }
+        }).then((response) => {
+            newId = response.body._id
+            expect(response.status).to.equal(201)
+            expect(response.body).to.have.all.keys('message', '_id').and.to.satisfy(body => {
+                return body.message.includes('Cadastro realizado com sucesso') 
+                    && typeof body._id === 'string'
+                    && body._id.length > 0
+            })
+            cy.deleteUser(newId)
         })
     })
 })
