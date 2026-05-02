@@ -36,3 +36,10 @@ Cypress.Commands.add('registerUser', (nome, email, password = 'teste', administr
         }
     })
 })
+
+Cypress.Commands.add('deleteUser', (id) => {
+    return cy.request({
+        method: 'DELETE',
+        url: `${Cypress.config('baseUrl')}/usuarios/${id}`
+    })
+})
