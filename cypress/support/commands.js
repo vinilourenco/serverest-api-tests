@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('registerUser', (nome, email, password = 'teste', administrador = 'true') => {
-    cy.request({
+    return cy.request({
         method: 'POST',
         url: `${Cypress.config('baseUrl')}/usuarios`,
         body: {
