@@ -4,6 +4,7 @@ module.exports = defineConfig({
   projectId: 'o9wasp',
   viewportHeight: 880,
   viewportWidth: 1280,
+  retries: 2,
   e2e: {
     baseUrl: 'http://localhost:3000'
   },
