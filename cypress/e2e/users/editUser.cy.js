@@ -5,6 +5,7 @@ describe('Users - Edit User', () => {
     const chance = new Chance()
     const defaultId = '0uxuPY0cbmQhpEz1'
     const defaultId2 = '0uxuPY0cbmQhpEz2'
+    const longName = Cypress._.repeat('abcdefghijklmnopqrstuvwxyz', 20)
     let randomName
     let randomEmail
     let userId
@@ -55,6 +56,11 @@ describe('Users - Edit User', () => {
 
     it('OK - Should return 200 when using special characters for user editing', () => {
         cy.editUser(`${defaultId}`, "Fúlano d'Sílva Jüñíor", 'fulano.especial@qa.com', 'teste123', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+    })
+
+    it.only('OK - Should return 200 when updating user with a long name', () => {
+        cy.editUser(`${defaultId}`, longName, 'nome.longo@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
 })
