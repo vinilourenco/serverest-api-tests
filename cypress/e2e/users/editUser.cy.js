@@ -28,10 +28,7 @@ describe('Users - Edit User', () => {
     })
 
     it('OK - Should return status code 200 when updating an existent user', () => {
-        cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => {
-            expect(response.status).to.eq(200)
-            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
-        })
+        cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserAssertion(response))
     })
 
     it('OK - Should return status code 201 and create a new user when updating unknown valid ID', () => {
@@ -48,28 +45,16 @@ describe('Users - Edit User', () => {
     })
 
     it('OK - Should update user keeping the same email', () => {
-        cy.editUser(`${defaultId}`, 'Nome Modificado', 'fulano@qa.com', 'novasenha123', 'true').then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
-        })
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
-        })
+        cy.editUser(`${defaultId}`, 'Nome Modificado', 'fulano@qa.com', 'novasenha123', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
 
-    it.only('OK - Should update administrador value succesfully', () => {
+    it('OK - Should update administrador value succesfully', () => {
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'false').then((response) => cy.editUserAssertion(response))
     })
 
     it('OK - Should return 200 when using special characters for user editing', () => {
-        cy.editUser(`${defaultId}`, "Fúlano d'Sílva Jüñíor", 'fulano.especial@qa.com', 'teste123', 'true').then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
-        })
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
-        })
+        cy.editUser(`${defaultId}`, "Fúlano d'Sílva Jüñíor", 'fulano.especial@qa.com', 'teste123', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
 })
