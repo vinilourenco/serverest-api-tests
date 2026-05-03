@@ -65,12 +65,19 @@ describe('Users - Edit User', () => {
         })
     })
 
-    it.only('OK - Should update user keeping the same email', () => {
+    it('OK - Should update user keeping the same email', () => {
         cy.editUser(`${defaultId}`, 'Nome Modificado', 'fulano@qa.com', 'novasenha123', 'true').then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
         })
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
+        })
+    })
+
+    it('OK - Should update administrador value succesfully', () => {
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'false').then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
         })
