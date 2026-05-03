@@ -27,10 +27,6 @@ describe('Users - Edit User', () => {
         }
     })
 
-    it('OK - Should return status code 200 when updating an existent user', () => {
-        cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserAssertion(response))
-    })
-
     it('OK - Should return status code 201 and create a new user when updating unknown valid ID', () => {
         cy.editUser(`${defaultId2}`, randomName, 'newuser@qa.com', 'novasenha123', 'true').then((response) => {
             newId = response.body._id
@@ -42,6 +38,10 @@ describe('Users - Edit User', () => {
             })
             cy.deleteUser(newId)
         })
+    })
+
+    it('OK - Should return status code 200 when updating an existent user', () => {
+        cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserAssertion(response))
     })
 
     it('OK - Should update user keeping the same email', () => {
