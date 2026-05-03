@@ -58,14 +58,11 @@ describe('Users - Edit User', () => {
         })
     })
 
-    it('OK - Should update administrador value succesfully', () => {
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'false').then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
-        })
+    it.only('OK - Should update administrador value succesfully', () => {
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'false').then((response) => cy.editUserAssertion(response))
     })
 
-    it.only('OK - Should return 200 when using special characters for user editing', () => {
+    it('OK - Should return 200 when using special characters for user editing', () => {
         cy.editUser(`${defaultId}`, "Fúlano d'Sílva Jüñíor", 'fulano.especial@qa.com', 'teste123', 'true').then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
