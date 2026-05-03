@@ -28,32 +28,14 @@ describe('Users - Edit User', () => {
     })
 
     it('OK - Should return status code 200 when updating an existent user', () => {
-        cy.request({
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${userId}`,
-            body: {
-                nome: 'Nome Atualizado',
-                email: randomEmail,
-                password: 'novasenha123',
-                administrador: 'false'
-            }
-        }).then((response) => {
+        cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => {
             expect(response.status).to.eq(200)
             expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
         })
     })
 
     it('OK - Should return status code 201 and create a new user when updating unknown valid ID', () => {
-        cy.request({
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId2}`,
-            body: {
-                nome: 'Novo Usuário',
-                email: 'newuser@qa.com',
-                password: 'novasenha123',
-                administrador: 'true'
-            }
-        }).then((response) => {
+        cy.editUser(`${defaultId2}`, randomName, 'newuser@qa.com', 'novasenha123', 'true').then((response) => {
             newId = response.body._id
             expect(response.status).to.equal(201)
             expect(response.body).to.have.all.keys('message', '_id').and.to.satisfy(body => {
