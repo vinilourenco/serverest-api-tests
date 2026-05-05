@@ -123,4 +123,21 @@ describe('Users - Edit User', () => {
             expect(response.body).to.have.property('message').includes('Este email já está sendo usado')
         })
     })
+
+    it('Bad Request - Should return error when name field empty', () => {
+        cy.request({
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: {
+                nome: '',
+                email: 'nome.vazio@qa.com',
+                password: 'teste',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('nome').includes('nome não pode ficar em branco')
+        })
+    })
 })
