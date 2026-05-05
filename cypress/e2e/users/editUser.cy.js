@@ -6,6 +6,7 @@ describe('Users - Edit User', () => {
     const defaultId = '0uxuPY0cbmQhpEz1'
     const defaultId2 = '0uxuPY0cbmQhpEz2'
     const longName = Cypress._.repeat('abcdefghijklmnopqrstuvwxyz', 20)
+    const longPassword = Cypress._.repeat('abcdefghijklmn10$%AMSKDKd!0i', 20)
     let randomName
     let randomEmail
     let userId
@@ -70,6 +71,16 @@ describe('Users - Edit User', () => {
 
     it('OK - Should return 200 for password with special characters', () => {
         cy.editUser(`${defaultId}`, 'Teste Senha', 'senha.especial@qa.com', 'S3nh@!C0mpl3x@#$%', 'false').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+    })
+
+    it('OK - Should return 200 if password too short (1 char)', () => {
+        cy.editUser(`${defaultId}`, 'Senha Curta', 'senha.curta@qa.com.br', '1', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+    })
+
+    it('OK - Should return 200 if password too long', () => {
+        cy.editUser(`${defaultId}`, 'Senha Longa', 'senha.longa@qa.com.br', longPassword, 'false').then((response) => cy.editUserAssertion(response))
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
 })
