@@ -124,7 +124,7 @@ describe('Users - Edit User', () => {
         })
     })
 
-    it('Bad Request - Should return error when name field empty', () => {
+    it('Bad Request - Should return error when name field is empty', () => {
         cy.request({
             method: 'PUT',
             url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
@@ -138,6 +138,23 @@ describe('Users - Edit User', () => {
         }).then((response) => {
             expect(response.status).to.equal(400)
             expect(response.body).to.have.property('nome').includes('nome não pode ficar em branco')
+        })
+    })
+
+    it('Bad Request - Should return error when email field is empty', () => {
+        cy.request({
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: {
+                nome: 'Fulano da Silva',
+                email: '',
+                password: 'teste',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('email').includes('email não pode ficar em branco')
         })
     })
 })
