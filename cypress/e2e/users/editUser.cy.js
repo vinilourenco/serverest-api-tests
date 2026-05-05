@@ -18,7 +18,6 @@ describe('Users - Edit User', () => {
         cy.registerUser(randomName, randomEmail).then((response) => {
             userId = response.body._id
             cy.log('Usuário criado com ID: ', userId);
-            
         })
     })
 
@@ -33,7 +32,7 @@ describe('Users - Edit User', () => {
             newId = response.body._id
             expect(response.status).to.equal(201)
             expect(response.body).to.have.all.keys('message', '_id').and.to.satisfy(body => {
-                return body.message.includes('Cadastro realizado com sucesso') 
+                return body.message.includes('Cadastro realizado com sucesso')
                     && typeof body._id === 'string'
                     && body._id.length > 0
             })
@@ -59,8 +58,13 @@ describe('Users - Edit User', () => {
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
 
-    it.only('OK - Should return 200 when updating user with a long name', () => {
+    it('OK - Should return 200 when updating user with a long name', () => {
         cy.editUser(`${defaultId}`, longName, 'nome.longo@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+    })
+
+    it('OK - Should return 200 for email with complex domain', () => {
+        cy.editUser(`${defaultId}`, 'Teste Email', 'usuario+tag@subdominio.empresa.com.br', 'teste', 'true').then((response) => cy.editUserAssertion(response))
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
 })
