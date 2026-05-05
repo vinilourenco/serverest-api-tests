@@ -89,7 +89,7 @@ describe('Users - Edit User', () => {
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
 
-    it('Bad Request - Should return error when using space on fields', () => {
+    it('Bad Request - Should return error when blank space on fields', () => {
         cy.request({
             method: 'PUT',
             url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
@@ -105,5 +105,22 @@ describe('Users - Edit User', () => {
                 expect(response.body).to.have.property('email').includes('email deve ser um email válido')
             })
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+    })
+
+    it('Bad Request - Should return error when updating user with existent email', () => {
+        cy.request({
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId2}`,
+            body: {
+                nome: 'Usuário Duplicado',
+                email: 'fulano@qa.com',
+                password: 'teste',
+                administrador: 'true'
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('message').includes('Este email já está sendo usado')
+        })
     })
 })
