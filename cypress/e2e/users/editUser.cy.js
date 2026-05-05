@@ -83,4 +83,9 @@ describe('Users - Edit User', () => {
         cy.editUser(`${defaultId}`, 'Senha Longa', 'senha.longa@qa.com.br', longPassword, 'false').then((response) => cy.editUserAssertion(response))
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
+
+    it('OK - Should return 200 if email is uppercase', () => {
+        cy.editUser(`${defaultId}`, 'Email Uppercase', 'TESTE.UPPERCASE@QA.COM.BR', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+    })
 })
