@@ -67,4 +67,9 @@ describe('Users - Edit User', () => {
         cy.editUser(`${defaultId}`, 'Teste Email', 'usuario+tag@subdominio.empresa.com.br', 'teste', 'true').then((response) => cy.editUserAssertion(response))
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
+
+    it('OK - Should return 200 for password with special characters', () => {
+        cy.editUser(`${defaultId}`, 'Teste Senha', 'senha.especial@qa.com', 'S3nh@!C0mpl3x@#$%', 'false').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+    })
 })
