@@ -174,4 +174,21 @@ describe('Users - Edit User', () => {
             expect(response.body).to.have.property('password').includes('password não pode ficar em branco')
         })
     })
+
+    it('Bad Request - Should return error when administrador field is empty', () => {
+        cy.request({
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: {
+                nome: 'Fulano da Silva',
+                email: 'admin.vazio@qa.com.br',
+                password: 'teste',
+                administrador: ''
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.property('administrador').includes("administrador deve ser 'true' ou 'false'")
+        })
+    })
 })
