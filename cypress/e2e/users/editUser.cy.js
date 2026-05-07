@@ -89,22 +89,30 @@ describe('Users - Edit User', () => {
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
     })
 
-    it('Bad Request - Should return error when blank space on fields', () => {
-        cy.request({
+    const errorCases = [
+        {
+            description: 'blank space on fields',
             method: 'PUT',
             url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
-            body: {
-                nome: '  Fulano da Silva  ',
-                email: '  fulano@qa.com  ',
-                password: '  teste  ',
-                administrador: 'true'   
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-                expect(response.status).to.equal(400)
-                expect(response.body).to.have.property('email').includes('email deve ser um email válido')
+            body: { nome: '  Fulano da Silva  ', email: '  fulano@qa.com  ', password: '  teste  ', administrador: 'true' },
+            expected: { status: 400, message: 'email deve ser um email válido' },
+            property: 'email'
+        }
+    ]
+    
+    errorCases.forEach(({ description, method, url, body, expected, property }) => {
+        it(`Bad Request - Shoudl return error when ${description}`, () => {
+            cy.request({
+                method,
+                url,
+                body,
+                failOnStatusCode: false
+            }).then((response) => {
+                expect(response.status).to.equal(expected.status)
+                expect(response.body).to.have.property(property).includes(expected.message)
             })
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+            cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        })
     })
 
     it('Bad Request - Should return error when updating user with existent email', () => {
