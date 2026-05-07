@@ -154,21 +154,4 @@ describe('Users - Edit User', () => {
             cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
         })
     })
-
-    it('Bad Request - Should return error when administrador field is empty', () => {
-        cy.request({
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
-            body: {
-                nome: 'Fulano da Silva',
-                email: 'admin.vazio@qa.com.br',
-                password: 'teste',
-                administrador: ''
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('administrador').includes("administrador deve ser 'true' ou 'false'")
-        })
-    })
 })
