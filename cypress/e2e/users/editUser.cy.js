@@ -42,51 +42,51 @@ describe('Users - Edit User', () => {
     })
 
     it('OK - Should return status code 200 when updating an existent user', () => {
-        cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should update user keeping the same email', () => {
-        cy.editUser(`${defaultId}`, 'Nome Modificado', 'fulano@qa.com', 'novasenha123', 'true').then((response) => cy.editUserAssertion(response))
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Nome Modificado', 'fulano@qa.com', 'novasenha123', 'true').then((response) => cy.editUserSuccess(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should update administrador value succesfully', () => {
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'false').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'false').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should return 200 when using special characters for user editing', () => {
-        cy.editUser(`${defaultId}`, "Fúlano d'Sílva Jüñíor", 'fulano.especial@qa.com', 'teste123', 'true').then((response) => cy.editUserAssertion(response))
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, "Fúlano d'Sílva Jüñíor", 'fulano.especial@qa.com', 'teste123', 'true').then((response) => cy.editUserSuccess(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should return 200 when updating user with a long name', () => {
-        cy.editUser(`${defaultId}`, longName, 'nome.longo@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, longName, 'nome.longo@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should return 200 for email with complex domain', () => {
-        cy.editUser(`${defaultId}`, 'Teste Email', 'usuario+tag@subdominio.empresa.com.br', 'teste', 'true').then((response) => cy.editUserAssertion(response))
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Teste Email', 'usuario+tag@subdominio.empresa.com.br', 'teste', 'true').then((response) => cy.editUserSuccess(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should return 200 for password with special characters', () => {
-        cy.editUser(`${defaultId}`, 'Teste Senha', 'senha.especial@qa.com', 'S3nh@!C0mpl3x@#$%', 'false').then((response) => cy.editUserAssertion(response))
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Teste Senha', 'senha.especial@qa.com', 'S3nh@!C0mpl3x@#$%', 'false').then((response) => cy.editUserSuccess(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should return 200 if password too short (1 char)', () => {
-        cy.editUser(`${defaultId}`, 'Senha Curta', 'senha.curta@qa.com.br', '1', 'true').then((response) => cy.editUserAssertion(response))
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Senha Curta', 'senha.curta@qa.com.br', '1', 'true').then((response) => cy.editUserSuccess(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should return 200 if password too long', () => {
-        cy.editUser(`${defaultId}`, 'Senha Longa', 'senha.longa@qa.com.br', longPassword, 'false').then((response) => cy.editUserAssertion(response))
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Senha Longa', 'senha.longa@qa.com.br', longPassword, 'false').then((response) => cy.editUserSuccess(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     it('OK - Should return 200 if email is uppercase', () => {
-        cy.editUser(`${defaultId}`, 'Email Uppercase', 'TESTE.UPPERCASE@QA.COM.BR', 'teste', 'true').then((response) => cy.editUserAssertion(response))
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+        cy.editUser(`${defaultId}`, 'Email Uppercase', 'TESTE.UPPERCASE@QA.COM.BR', 'teste', 'true').then((response) => cy.editUserSuccess(response))
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     const errorCases = [
@@ -151,7 +151,7 @@ describe('Users - Edit User', () => {
                 expect(response.status).to.equal(expected.status)
                 expect(response.body).to.have.property(property).includes(expected.message)
             })
-            cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
+            cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
         })
     })
 })

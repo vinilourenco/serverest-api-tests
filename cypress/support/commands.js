@@ -58,7 +58,7 @@ Cypress.Commands.add('editUser', (id, nome, email, password, administrador) => {
 })
 
 // Assertions
-Cypress.Commands.add('editUserAssertion', (response) => {
+Cypress.Commands.add('editUserSuccess', (response) => {
     expect(response.status).to.equal(200)
     expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
 })
