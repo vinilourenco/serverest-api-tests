@@ -97,11 +97,51 @@ describe('Users - Edit User', () => {
             body: { nome: '  Fulano da Silva  ', email: '  fulano@qa.com  ', password: '  teste  ', administrador: 'true' },
             expected: { status: 400, message: 'email deve ser um email válido' },
             property: 'email'
+        },
+        {
+            description: 'updating user with existent email',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId2}`,
+            body: { nome: 'Usuário Duplicado', email: 'fulano@qa.com', password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'Este email já está sendo usado' },
+            property: 'message'
+        },
+        {
+            description: 'name field is empty',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: '', email: 'nome.vazio@qa.com', password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'nome não pode ficar em branco' },
+            property: 'nome'
+        },
+        {
+            description: 'email field is empty',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Fulano da Silva', email: '', password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'email não pode ficar em branco' },
+            property: 'email'
+        },
+        {
+            description: 'password field is empty',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Fulano da Silva', email: 'senha.vazia@qa.com.br', password: '', administrador: 'false' },
+            expected: { status: 400, message: 'password não pode ficar em branco' },
+            property: 'password'
+        },
+        {
+            description: 'administrador field is empty',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Fulano da Silva', email: 'admin.vazio@qa.com.br', password: 'teste', administrador: '' },
+            expected: { status: 400, message: "administrador deve ser 'true' ou 'false'" },
+            property: 'administrador'
         }
     ]
     
     errorCases.forEach(({ description, method, url, body, expected, property }) => {
-        it(`Bad Request - Shoudl return error when ${description}`, () => {
+        it(`Bad Request - Should return error when ${description}`, () => {
             cy.request({
                 method,
                 url,
@@ -112,74 +152,6 @@ describe('Users - Edit User', () => {
                 expect(response.body).to.have.property(property).includes(expected.message)
             })
             cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserAssertion(response))
-        })
-    })
-
-    it('Bad Request - Should return error when updating user with existent email', () => {
-        cy.request({
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId2}`,
-            body: {
-                nome: 'Usuário Duplicado',
-                email: 'fulano@qa.com',
-                password: 'teste',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('message').includes('Este email já está sendo usado')
-        })
-    })
-
-    it('Bad Request - Should return error when name field is empty', () => {
-        cy.request({
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
-            body: {
-                nome: '',
-                email: 'nome.vazio@qa.com',
-                password: 'teste',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('nome').includes('nome não pode ficar em branco')
-        })
-    })
-
-    it('Bad Request - Should return error when email field is empty', () => {
-        cy.request({
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
-            body: {
-                nome: 'Fulano da Silva',
-                email: '',
-                password: 'teste',
-                administrador: 'true'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('email').includes('email não pode ficar em branco')
-        })
-    })
-
-    it('Bad Request - Should return error when password field is empty', () => {
-        cy.request({
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
-            body: {
-                nome: 'Fulano da Silva',
-                email: 'senha.vazia@qa.com.br',
-                password: '',
-                administrador: 'false'
-            },
-            failOnStatusCode: false
-        }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('password').includes('password não pode ficar em branco')
         })
     })
 
