@@ -45,6 +45,20 @@ describe('Users - Edit User', () => {
         cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserSuccess(response))
     })
 
+    const succesCases =[
+        {
+            description: 'update user keeping the same email',
+            user: { id: `${defaultId}`, nome: 'Nome Modificado', email: 'fulano@qa.com', password: 'novasenha123', administrador: 'true' }
+        }
+    ]
+
+    succesCases.forEach(({description, user}) => {
+        it(`OK - Should ${description} (P)`, () => {
+            cy.editUser(user.id, user.nome, user.email, user.password, user.administrador).then((response) => cy.editUserSuccess(response))
+            cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
+        })
+    })
+
     it('OK - Should update user keeping the same email', () => {
         cy.editUser(`${defaultId}`, 'Nome Modificado', 'fulano@qa.com', 'novasenha123', 'true').then((response) => cy.editUserSuccess(response))
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
