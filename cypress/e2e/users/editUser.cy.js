@@ -147,6 +147,30 @@ describe('Users - Edit User', () => {
             body: {  email: 'empty.admin@qa.com.br', password: 'teste', administrador: '' },
             expected: { status: 400, message: 'nome é obrigatório' },
             property: 'nome'
+        },
+        {
+            description: 'Should return error when email field is missing',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Email Missing', password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'email é obrigatório' },
+            property: 'email'
+        },
+        {
+            description: 'Should return error when password field is missing',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Password Missing', email: 'without.password@qa.com', administrador: 'true' },
+            expected: { status: 400, message: 'password é obrigatório' },
+            property: 'password'
+        },
+        {
+            description: 'Should return error when administrador field is missing',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Admin Missing', email: 'without.admin@qa.com', password: 'teste', },
+            expected: { status: 400, message: 'administrador é obrigatório' },
+            property: 'administrador'
         }
     ]
     
