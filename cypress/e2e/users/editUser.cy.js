@@ -187,6 +187,14 @@ describe('Users - Edit User', () => {
             body: { nome: 'Email Without Domain', email: 'user@', password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'email deve ser um email válido' },
             property: 'email'
+        },
+        {
+            description: 'Should return erroe when administrador field is invalid',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Invalid Admin', email: 'invalid.admin@qa.com', password: 'teste', administrador: 'sim' },
+            expected: { status: 400, message: "administrador deve ser 'true' ou 'false'" },
+            property: 'administrador'
         }
     ]
     
