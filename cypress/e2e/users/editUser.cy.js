@@ -213,7 +213,7 @@ describe('Users - Edit User', () => {
         })
     })
 
-    it.only(`Bad Request - Should return error when extra fields are send`, () => {
+    it(`Bad Request - Should return error when extra fields are send`, () => {
         cy.request({
             method: 'PUT',
             url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
@@ -230,6 +230,26 @@ describe('Users - Edit User', () => {
             expect(response.status).to.equal(400)
             expect(response.body).to.have.all.keys('campoExtra', 'outroExtra').and.to.satisfy(body => {
                 return body.campoExtra.includes('campoExtra não é permitido') && body.outroExtra.includes('outroExtra não é permitido')
+            })
+        })
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
+    })
+
+    it.only('Bad Request - Should return error when field values are null', () => {
+        cy.request({
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: {
+                nome: null,
+                email: null,
+                password: null,
+                administrador: null
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.all.keys('nome', 'email', 'password', 'administrador').and.to.satisfy(body => {
+                return body.nome.includes('nome deve ser uma string') && body.email.includes('email deve ser uma string') && body.password.includes('password deve ser uma string') && body.administrador.includes("administrador deve ser 'true' ou 'false'")
             })
         })
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
