@@ -189,7 +189,7 @@ describe('Users - Edit User', () => {
             property: 'email'
         },
         {
-            description: 'Should return erroe when administrador field is invalid',
+            description: 'Should return error when administrador field is invalid',
             method: 'PUT',
             url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
             body: { nome: 'Invalid Admin', email: 'invalid.admin@qa.com', password: 'teste', administrador: 'sim' },
@@ -211,5 +211,27 @@ describe('Users - Edit User', () => {
             })
             cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
         })
+    })
+
+    it.only(`Bad Request - Should return error when extra fields are send`, () => {
+        cy.request({
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: {
+                nome: 'Campos Extras',
+                email: 'extras@qa.com.br',
+                password: 'teste',
+                administrador: 'true',
+                campoExtra: 'valor',
+                outroExtra: 123
+            },
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(400)
+            expect(response.body).to.have.all.keys('campoExtra', 'outroExtra').and.to.satisfy(body => {
+                return body.campoExtra.includes('campoExtra não é permitido') && body.outroExtra.includes('outroExtra não é permitido')
+            })
+        })
+        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 })
