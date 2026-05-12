@@ -203,6 +203,14 @@ describe('Users - Edit User', () => {
             body: { nome: 'Email Boolean', email: true, password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'email deve ser uma string' },
             property: 'email'
+        },
+        {
+            description: 'Should return error when administrador field is a boolean',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Admin Boolean', email: 'admin.boolean@qa.com', password: 'teste', administrador: true },
+            expected: { status: 400, message: "administrador deve ser 'true' ou 'false'" },
+            property: 'administrador'
         }
     ]
     
