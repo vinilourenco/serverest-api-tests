@@ -195,6 +195,14 @@ describe('Users - Edit User', () => {
             body: { nome: 'Invalid Admin', email: 'invalid.admin@qa.com', password: 'teste', administrador: 'sim' },
             expected: { status: 400, message: "administrador deve ser 'true' ou 'false'" },
             property: 'administrador'
+        },
+        {
+            description: 'Should return error when email field is a boolean',
+            method: 'PUT',
+            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            body: { nome: 'Email Boolean', email: true, password: 'teste', administrador: 'true' },
+            expected: { status: 400, message: 'email deve ser uma string' },
+            property: 'email'
         }
     ]
     
@@ -235,7 +243,7 @@ describe('Users - Edit User', () => {
         cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
-    it.only('Bad Request - Should return error when field values are null', () => {
+    it('Bad Request - Should return error when field values are null', () => {
         cy.request({
             method: 'PUT',
             url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
