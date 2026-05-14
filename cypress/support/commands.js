@@ -24,6 +24,7 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+// Requests
 Cypress.Commands.add('registerUser', (nome, email, password = 'teste', administrador = 'true') => {
     return cy.request({
         method: 'POST',
@@ -54,6 +55,13 @@ Cypress.Commands.add('editUser', (id, nome, email, password, administrador) => {
             password,
             administrador   
         }
+    })
+})
+
+Cypress.Commands.add('listRegisteredProducts', (id, nome, preco, descricao, quantidade) => {
+    return cy.request({
+        method: 'GET',
+        url: `${Cypress.config('baseUrl')}/produtos?_id=${id}&nome=${nome}&preco=${preco}&descricao=${descricao}&quantidade=${quantidade}`
     })
 })
 
