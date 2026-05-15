@@ -58,10 +58,10 @@ Cypress.Commands.add('editUser', (id, nome, email, password, administrador) => {
     })
 })
 
-Cypress.Commands.add('listRegisteredProducts', (id, nome, preco, descricao, quantidade) => {
+Cypress.Commands.add('listAllProducts', (id, nome, preco, descricao, quantidade) => {
     return cy.request({
         method: 'GET',
-        url: `${Cypress.config('baseUrl')}/produtos?_id=${id}&nome=${nome}&preco=${preco}&descricao=${descricao}&quantidade=${quantidade}`
+        url: `${Cypress.config('baseUrl')}/produtos`
     })
 })
 
