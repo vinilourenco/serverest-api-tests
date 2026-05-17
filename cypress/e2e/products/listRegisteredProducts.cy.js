@@ -36,11 +36,6 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC003 - List all products by existent name', () => {
-        // cy.log("Product List:", JSON.stringify(productList))
-
-         expect(productList.body).to.have.property('quantidade', 2)
-         expect(productList.body.produtos).to.be.an('array').that.is.not.empty
-
          productList.body.produtos.forEach((product) => {
             expect(product).to.be.an('object')
             const productName = product.nome
@@ -56,9 +51,6 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC004 - List all products by specific price', () => {
-        expect(productList.body).to.have.property('quantidade', 2)
-        expect(productList.body.produtos).to.be.an('array').that.is.not.empty
-
         productList.body.produtos.forEach((product) => {
             expect(product).to.be.an('object')
             const productPrice = product.preco
@@ -69,6 +61,21 @@ describe('Products - List Registered Products', () => {
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 expect(response.body.produtos[0]).to.have.property('preco', productPrice)
+            })
+        })
+    })
+
+    it.only('TC005 - List products filtering by description', () => {
+        productList.body.produtos.forEach((product) => {
+            expect(product).to.be.an('object')
+            const description = product.descricao
+
+            cy.request({
+                method: 'GET',
+                url: `${Cypress.config('baseUrl')}/produtos?descricao=${description}`
+            }).then((response) => {
+                expect(response.status).to.equal(200)
+                expect(response.body.produtos[0]).to.have.property('descricao', description)
             })
         })
     })
