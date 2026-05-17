@@ -65,7 +65,7 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it.only('TC005 - List products filtering by description', () => {
+    it('TC005 - List products filtering by description', () => {
         productList.body.produtos.forEach((product) => {
             expect(product).to.be.an('object')
             const description = product.descricao
@@ -76,6 +76,39 @@ describe('Products - List Registered Products', () => {
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 expect(response.body.produtos[0]).to.have.property('descricao', description)
+            })
+        })
+    })
+
+    it('TC006 - List products filtering by specific quantity', () => {
+        productList.body.produtos.forEach((product) => {
+            expect(product).to.be.an('object')
+            const quantity = product.quantidade
+
+            cy.request({
+                method: 'GET',
+                url: `${Cypress.config('baseUrl')}/produtos?quantidade=${quantity}`
+            }).then((response) => {
+                expect(response.status).to.equal(200)
+                expect(response.body.produtos[0]).to.have.property('quantidade', quantity)
+            })
+        })
+    })
+
+    it.only('TC007 - List products filtering multiple combinations', () => {
+        productList.body.produtos.forEach((product) => {
+            expect(product).to.be.an('object')
+            const productName = product.nome
+            const productPrice = product.preco
+
+            cy.request({
+                method: 'GET',
+                url: `${Cypress.config('baseUrl')}/produtos?nome=${productName}&preco=${productPrice}`
+            }).then((response) => {
+                const produto = response.body.produtos[0]
+                expect(response.status).to.equal(200)
+                expect(produto).to.have.property('nome', productName)
+                expect(produto).to.have.property('preco', productPrice)
             })
         })
     })
