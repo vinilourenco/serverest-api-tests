@@ -5,10 +5,12 @@ describe('Products - List Registered Products', () => {
     const defaultId = 'BeeJh5lz3k6kSIzA';
     const chance = new Chance()
     let randomName
+    let randomString
     let productList = []
 
     beforeEach(() => {
         randomName = chance.name()
+        randomString = Cypress._.repeat(chance.geohash(), 2)
 
         cy.listAllProducts()
             .then(response => { 
@@ -118,16 +120,27 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it.only('TC008 - Shows empty list when there is no products registered', () => {
+    it('TC008 - Shows empty list when there is no products registered', () => {
         cy.request({
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/produtos?nome=${randomName}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
-                return body.quantidade === 0 && Array.isArray(body.produtos)
+                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
             })
-            expect(response.body.produtos).to.be.an('array').that.is.empty
+        })
+    })
+
+    it('TC009 - List by inexistent ID', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/produtos?_id=${randomString}`
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
+                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
+            })
         })
     })
 })
