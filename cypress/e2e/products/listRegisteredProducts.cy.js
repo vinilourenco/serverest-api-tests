@@ -132,10 +132,22 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it('TC009 - List by inexistent ID', () => {
+    it('TC009 - Empty list for inexistent ID', () => {
         cy.request({
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/produtos?_id=${randomString}`
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
+                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
+            })
+        })
+    })
+
+    it('TC010 - Empty list for inexistent product name', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/produtos?nome=${randomString}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
