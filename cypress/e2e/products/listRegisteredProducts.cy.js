@@ -1,13 +1,18 @@
+const Chance = require('chance')
+
 describe('Products - List Registered Products', () => {
 
     const defaultId = 'BeeJh5lz3k6kSIzA';
+    const chance = new Chance()
+    let randomName
     let productList = []
 
     beforeEach(() => {
+        randomName = chance.name()
+
         cy.listAllProducts()
             .then(response => { 
-                productList = response
-                // cy.log(JSON.stringify(productList)) 
+                productList = response 
             })
     })
 
@@ -95,7 +100,7 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it.only('TC007 - List products filtering multiple combinations', () => {
+    it('TC007 - List products filtering multiple combinations', () => {
         productList.body.produtos.forEach((product) => {
             expect(product).to.be.an('object')
             const productName = product.nome
@@ -110,6 +115,19 @@ describe('Products - List Registered Products', () => {
                 expect(produto).to.have.property('nome', productName)
                 expect(produto).to.have.property('preco', productPrice)
             })
+        })
+    })
+
+    it.only('TC008 - Shows empty list when there is no products registered', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/produtos?nome=${randomName}`
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
+                return body.quantidade === 0 && Array.isArray(body.produtos)
+            })
+            expect(response.body.produtos).to.be.an('array').that.is.empty
         })
     })
 })
