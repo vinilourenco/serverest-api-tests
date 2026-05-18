@@ -155,4 +155,20 @@ describe('Products - List Registered Products', () => {
             })
         })
     })
+
+    it.only('TC011 - Filter product list with case sensitive', () => {
+        productList.body.produtos.forEach((product) => {
+            expect(product).to.be.an('object')
+            const productName = product.nome
+            const lowerCaseName = productName.toLowerCase()
+
+            cy.request({
+                method: 'GET',
+                url: `${Cypress.config('baseUrl')}/produtos?nome=${lowerCaseName}`
+            }).then((response) => {
+                expect(response.status).to.equal(200)
+                expect(response.body.produtos[0]).to.have.property('nome', productName)
+            })
+        })
+    })
 })
