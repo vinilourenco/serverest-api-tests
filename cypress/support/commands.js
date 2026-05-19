@@ -58,6 +58,19 @@ Cypress.Commands.add('editUser', (id, nome, email, password, administrador) => {
     })
 })
 
+Cypress.Commands.add('registerProduct', (nome, preco, descricao, quantidade) => {
+    return cy.request({
+        method: 'POST',
+        url: `${Cypress.config('baseUrl')}/produtos`,
+        body: {
+            nome,
+            preco,
+            descricao,
+            quantidade
+        }
+    })
+})
+
 Cypress.Commands.add('listAllProducts', (id, nome, preco, descricao, quantidade) => {
     return cy.request({
         method: 'GET',
