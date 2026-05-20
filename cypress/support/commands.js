@@ -71,6 +71,13 @@ Cypress.Commands.add('registerProduct', (nome, preco, descricao, quantidade) => 
     })
 })
 
+Cypress.Commands.add('deleteProduct', (id) => {
+    return cy.request({
+        method: 'DELETE',
+        url: `${Cypress.config('baseUrl')}/produtos/${id}`
+    })
+})
+
 Cypress.Commands.add('listAllProducts', (id, nome, preco, descricao, quantidade) => {
     return cy.request({
         method: 'GET',

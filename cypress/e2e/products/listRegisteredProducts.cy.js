@@ -1,4 +1,4 @@
-const Chance = require('chance')
+const Chance = require('chance');
 
 describe('Products - List Registered Products', () => {
 
@@ -156,7 +156,7 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it.only('TC011 - Filter product list with case sensitive', () => {
+    it('TC011 - Filter product list with case sensitive', () => {
         productList.body.produtos.forEach((product) => {
             expect(product).to.be.an('object')
             const productName = product.nome
@@ -168,6 +168,20 @@ describe('Products - List Registered Products', () => {
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 expect(response.body.produtos[0]).to.have.property('nome', productName)
+            })
+        })
+    })
+
+    it.only('TC014 - Filter product by extremely high price', () => {
+        const highPrice = 999999
+
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/produtos?preco=${highPrice}`
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
+                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
             })
         })
     })
