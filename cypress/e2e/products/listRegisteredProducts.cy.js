@@ -200,7 +200,7 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it.only('TC017 - Filter product with blank space before and after the string', () => {
+    it('TC017 - Filter product with blank space before and after the string', () => {
         const blankName = ' Mouse '
 
         cy.request({
@@ -209,7 +209,35 @@ describe('Products - List Registered Products', () => {
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
-                return body.quantidade === 0 && Array.isArray(body.produtos)
+                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
+            })
+        })
+    })
+
+    it('TC018 - Filter product by empty description', () => {
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/produtos?descricao=`
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
+                return body.quantidade >= 0 && Array.isArray(body.produtos) && body.produtos.length >= 0
+            })
+        })
+    })
+
+    it('TC0019 - Filter product by multiples filter fields to return empty list', () => {
+        const productPrice = 999999
+        const productQuantity = 0
+        const productName = 'Mouse'
+
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/produtos?preco=${productPrice}&quantidade=${productQuantity}&nome=${productName}`
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
+                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
             })
         })
     })
