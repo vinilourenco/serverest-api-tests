@@ -172,7 +172,7 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it.only('TC014 - Filter product by extremely high price', () => {
+    it('TC014 - Filter product by extremely high price', () => {
         const highPrice = 999999
 
         cy.request({
@@ -186,7 +186,7 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it('TC015 - Filter product by high quantity', () => {
+    it('TC016 - Filter product by high quantity', () => {
         const highQuantity = 999999
 
         cy.request({
@@ -196,6 +196,20 @@ describe('Products - List Registered Products', () => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
                 return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
+            })
+        })
+    })
+
+    it.only('TC017 - Filter product with blank space before and after the string', () => {
+        const blankName = ' Mouse '
+
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/produtos?nome=${blankName}`
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
+                return body.quantidade === 0 && Array.isArray(body.produtos)
             })
         })
     })
