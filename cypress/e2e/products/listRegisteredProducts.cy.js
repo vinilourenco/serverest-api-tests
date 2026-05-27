@@ -13,8 +13,8 @@ describe('Products - List Registered Products', () => {
         randomString = Cypress._.repeat(chance.geohash(), 2)
 
         cy.listAllProducts()
-            .then(response => { 
-                productList = response 
+            .then(response => {
+                productList = response
             })
     })
 
@@ -43,7 +43,7 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC003 - List all products by existent name', () => {
-         productList.body.produtos.forEach((product) => {
+        productList.body.produtos.forEach((product) => {
             expect(product).to.be.an('object')
             const productName = product.nome
 
@@ -54,7 +54,7 @@ describe('Products - List Registered Products', () => {
                 expect(response.status).to.equal(200)
                 expect(response.body.produtos[0]).to.have.property('nome', productName)
             })
-         })
+        })
     })
 
     it('TC004 - List all products by specific price', () => {
@@ -178,6 +178,20 @@ describe('Products - List Registered Products', () => {
         cy.request({
             method: 'GET',
             url: `${Cypress.config('baseUrl')}/produtos?preco=${highPrice}`
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
+                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
+            })
+        })
+    })
+
+    it('TC015 - Filter product by high quantity', () => {
+        const highQuantity = 999999
+
+        cy.request({
+            method: 'GET',
+            url: `${Cypress.config('baseUrl')}/produtos?quantidade=${highQuantity}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
