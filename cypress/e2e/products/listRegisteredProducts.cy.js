@@ -43,7 +43,7 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC003 - List all products by existent name', () => {
-        productList.body.produtos.forEach((product) => {
+        cy.wrap(productList.body.produtos).each((product) => {
             expect(product).to.be.an('object')
             const productName = product.nome
 
@@ -58,7 +58,7 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC004 - List all products by specific price', () => {
-        productList.body.produtos.forEach((product) => {
+        cy.wrap(productList.body.produtos).each((product) => {
             expect(product).to.be.an('object')
             const productPrice = product.preco
 
@@ -73,7 +73,7 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC005 - List products filtering by description', () => {
-        productList.body.produtos.forEach((product) => {
+        cy.wrap(productList.body.produtos).each((product) => {
             expect(product).to.be.an('object')
             const description = product.descricao
 
@@ -88,7 +88,7 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC006 - List products filtering by specific quantity', () => {
-        productList.body.produtos.forEach((product) => {
+        cy.wrap(productList.body.produtos).each((product) => {
             expect(product).to.be.an('object')
             const quantity = product.quantidade
 
@@ -103,7 +103,7 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC007 - List products filtering multiple combinations', () => {
-        productList.body.produtos.forEach((product) => {
+        cy.wrap(productList.body.produtos).each((product) => {
             expect(product).to.be.an('object')
             const productName = product.nome
             const productPrice = product.preco
@@ -157,7 +157,7 @@ describe('Products - List Registered Products', () => {
     })
 
     it('TC011 - Filter product list with case sensitive', () => {
-        productList.body.produtos.forEach((product) => {
+        cy.wrap(productList.body.produtos).each((product) => {
             expect(product).to.be.an('object')
             const productName = product.nome
             const lowerCaseName = productName.toLowerCase()
@@ -242,7 +242,7 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it.only('TC021 - Filter products with special encoding URL', () => {
+    it('TC021 - Filter products with special encoding URL', () => {
         cy.wrap(productList.body.produtos).each((produto) => {
             expect(produto).to.be.an('object')
             const productName = produto.nome
