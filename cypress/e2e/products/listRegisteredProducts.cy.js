@@ -241,4 +241,23 @@ describe('Products - List Registered Products', () => {
             })
         })
     })
+
+    it.only('TC021 - Filter products with special encoding URL', () => {
+        cy.wrap(productList.body.produtos).each((produto) => {
+            expect(produto).to.be.an('object')
+            const productName = produto.nome
+
+            cy.request({
+                method: 'GET',
+                url: `${Cypress.config('baseUrl')}/produtos?nome=${encodeURIComponent(productName)}`,
+                failOnStatusCode: false
+            }).then((response) => {
+                expect(response.status).to.equal(200)
+                expect(response.body.quantidade).to.be.greaterThan(0)
+                response.body.produtos.forEach((p) => {
+                    expect(p).to.have.property('nome', productName)
+                })
+            })
+        })
+    })
 })
