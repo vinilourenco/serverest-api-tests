@@ -217,7 +217,7 @@ describe('Products - List Registered Products', () => {
 
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?nome=${blankName}`
+            url: `${Cypress.config('baseUrl')}/produtos?nome=${encodeURIComponent(blankName)}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
@@ -238,7 +238,7 @@ describe('Products - List Registered Products', () => {
         })
     })
 
-    it('TC0019 - Filter product by multiples filter fields to return empty list', () => {
+    it('TC019 - Filter product by multiples filter fields to return empty list', () => {
         const productPrice = 999999
         const productQuantity = 0
         const productName = 'Mouse'
