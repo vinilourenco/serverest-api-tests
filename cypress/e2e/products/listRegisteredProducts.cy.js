@@ -52,7 +52,9 @@ describe('Products - List Registered Products', () => {
                 url: `${Cypress.config('baseUrl')}/produtos?nome=${productName}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
-                expect(response.body.produtos[0]).to.have.property('nome', productName)
+                response.body.produtos.forEach((p) => {
+                    expect(p).to.have.property('nome', productName)
+                })
             })
         })
     })
@@ -67,7 +69,9 @@ describe('Products - List Registered Products', () => {
                 url: `${Cypress.config('baseUrl')}/produtos?preco=${productPrice}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
-                expect(response.body.produtos[0]).to.have.property('preco', productPrice)
+                response.body.produtos.forEach((p) => {
+                    expect(p).to.have.property('preco', productPrice)
+                })
             })
         })
     })
@@ -82,7 +86,9 @@ describe('Products - List Registered Products', () => {
                 url: `${Cypress.config('baseUrl')}/produtos?descricao=${description}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
-                expect(response.body.produtos[0]).to.have.property('descricao', description)
+                response.body.produtos.forEach((p) => {
+                    expect(p).to.have.property('descricao', description)
+                })
             })
         })
     })
@@ -97,7 +103,9 @@ describe('Products - List Registered Products', () => {
                 url: `${Cypress.config('baseUrl')}/produtos?quantidade=${quantity}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
-                expect(response.body.produtos[0]).to.have.property('quantidade', quantity)
+                response.body.produtos.forEach((p) => {
+                    expect(response.body.produtos[0]).to.have.property('quantidade', quantity)
+                })
             })
         })
     })
@@ -114,8 +122,10 @@ describe('Products - List Registered Products', () => {
             }).then((response) => {
                 const produto = response.body.produtos[0]
                 expect(response.status).to.equal(200)
-                expect(produto).to.have.property('nome', productName)
-                expect(produto).to.have.property('preco', productPrice)
+                response.body.produtos.forEach((p) => {
+                    expect(produto).to.have.property('nome', productName)
+                    expect(produto).to.have.property('preco', productPrice)
+                })
             })
         })
     })
@@ -167,7 +177,9 @@ describe('Products - List Registered Products', () => {
                 url: `${Cypress.config('baseUrl')}/produtos?nome=${lowerCaseName}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
-                expect(response.body.produtos[0]).to.have.property('nome', productName)
+                response.body.produtos.forEach((p) => {
+                    expect(p).to.have.property('nome', productName)
+                })
             })
         })
     })
