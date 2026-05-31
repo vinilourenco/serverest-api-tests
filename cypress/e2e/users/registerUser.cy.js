@@ -14,7 +14,10 @@ describe('Users - Register Users', () => {
 
     afterEach(() => {
         if (userId) {
-            cy.request('DELETE', `${Cypress.config('baseUrl')}/usuarios/${userId}`)
+            cy.deleteUser(userId).then((response) => {
+                expect(response.status).to.equal(200)
+                userId = null
+            })
         }
     })
 
