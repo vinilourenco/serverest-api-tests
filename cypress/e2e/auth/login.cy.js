@@ -1,5 +1,5 @@
 describe('Auth - Login', () => {
-    
+
     const user = {
         email: 'fulano@qa.com',
         password: 'teste'
@@ -16,13 +16,12 @@ describe('Auth - Login', () => {
         }).then((response) => {
             expect(response.status).to.equal(200);
             expect(response.statusText).to.equal('OK');
-            expect(response.body).to.include.all.keys('message', 'authorization').and.to.satisfy(body => {
-                return body.message.includes('sucesso') && body.authorization.includes('Bearer')
-            })
+            expect(response.body.message).to.be.a('string').that.includes('Login realizado com sucesso')
+            expect(response.body.authorization).to.be.a('string').that.includes('Bearer')
         })
     })
 
-    it('Unauthorized - invalid passworld', () => {
+    it('Unauthorized - invalid password', () => {
         cy.request({
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
@@ -54,13 +53,13 @@ describe('Auth - Login', () => {
 
     it('Bad Request - email is blank', () => {
         cy.request({
-           method: 'POST',
-           url: `${Cypress.config('baseUrl')}/login`,
-           body: {
-            email: '',
-            password: 'teste'
-           },
-           failOnStatusCode: false 
+            method: 'POST',
+            url: `${Cypress.config('baseUrl')}/login`,
+            body: {
+                email: '',
+                password: 'teste'
+            },
+            failOnStatusCode: false
         }).then((response) => {
             expect(response.status).to.equal(400)
             expect(response.body).to.have.property('email').includes('email não pode ficar em branco')
@@ -72,8 +71,8 @@ describe('Auth - Login', () => {
             method: 'POST',
             url: `${Cypress.config('baseUrl')}/login`,
             body: {
-              email: 'fulano@qa.com',
-              password: ''
+                email: 'fulano@qa.com',
+                password: ''
             },
             failOnStatusCode: false
         }).then((response) => {
@@ -93,10 +92,11 @@ describe('Auth - Login', () => {
             failOnStatusCode: false
         }).then((response) => {
             expect(response.status).to.equal(400)
-            expect(response.body).to.include.all.keys('email', 'password')
-                .and.to.satisfy(body => {
-                    return body.email.includes('branco') && body.password.includes('branco')
-                })
+            expect(response.body.email).to.be.a('string')
+            expect(response.body.password).to.be.a('string')
+            expect(response.body.email).includes('branco')
+            expect(response.body.password).includes('branco')
+
         })
     })
 
@@ -111,10 +111,10 @@ describe('Auth - Login', () => {
             failOnStatusCode: false
         }).then((response) => {
             expect(response.status).to.equal(400)
-            expect(response.body).to.include.all.keys('email', 'username')
-                .and.to.satisfy(body => {
-                    return body.email.includes('email é obrigatório') && body.username.includes('username não é permitido')
-            })
+            expect(response.body.email).to.be.a('string')
+            expect(response.body.username).to.be.a('string')
+            expect(response.body.email).includes('email é obrigatório')
+            expect(response.body.username).includes('username não é permitido')
         })
     })
 })
