@@ -10,8 +10,7 @@ describe('Users - Edit User', () => {
     let randomName
     let randomEmail
     let userId
-    let newId
-
+    
     beforeEach(() => {
         randomName = chance.name()
         randomEmail = chance.email()
@@ -28,16 +27,13 @@ describe('Users - Edit User', () => {
         }
     })
 
-    it('OK - Should return status code 201 and create a new user when updating unknown valid ID', () => {
-        cy.editUser(`${defaultId2}`, randomName, 'newuser@qa.com', 'novasenha123', 'true').then((response) => {
-            newId = response.body._id
+    it('OK - Should create a new user when updating unknown valid ID', () => {
+        cy.editUser(defaultId2, randomName, 'newuser@qa.com', 'novasenha123', 'true').then((response) => {
+            const createdId = response.body._id
             expect(response.status).to.equal(201)
-            expect(response.body).to.have.all.keys('message', '_id').and.to.satisfy(body => {
-                return body.message.includes('Cadastro realizado com sucesso')
-                    && typeof body._id === 'string'
-                    && body._id.length > 0
-            })
-            cy.deleteUser(newId)
+            expect(response.body.message).to.equal('Cadastro realizado com sucesso')
+            expect(createdId).to.be.a('string').and.have.length.greaterThan(0)
+            cy.deleteUser(createdId)
         })
     })
 
