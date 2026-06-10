@@ -49,12 +49,8 @@ Cypress.Commands.add('editUser', (id, nome, email, password, administrador) => {
     return cy.request({
         method: 'PUT',
         url: `${Cypress.config('baseUrl')}/usuarios/${id}`,
-        body: {
-            nome,
-            email,
-            password,
-            administrador   
-        }
+        failOnStatusCode: false,
+        body: { nome, email, password, administrador }
     })
 })
 
@@ -62,12 +58,7 @@ Cypress.Commands.add('registerProduct', (nome, preco, descricao, quantidade) => 
     return cy.request({
         method: 'POST',
         url: `${Cypress.config('baseUrl')}/produtos`,
-        body: {
-            nome,
-            preco,
-            descricao,
-            quantidade
-        }
+        body: { nome, preco, descricao, quantidade }
     })
 })
 
