@@ -79,5 +79,6 @@ Cypress.Commands.add('listAllProducts', (id, nome, preco, descricao, quantidade)
 // Assertions
 Cypress.Commands.add('editUserSuccess', (response) => {
     expect(response.status).to.equal(200)
-    expect(response.body).to.have.property('message').includes('Registro alterado com sucesso')
+    expect(response.body).to.have.all.keys('message')
+    expect(response.body.message).to.equal('Registro alterado com sucesso')
 })
