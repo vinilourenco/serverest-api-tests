@@ -26,6 +26,7 @@ describe('Users - Edit User', () => {
         cy.editUser(defaultId2, randomName, 'newuser@qa.com', 'novasenha123', 'true').then((response) => {
             const createdId = response.body._id
             expect(response.status).to.equal(201)
+            expect(response.body).to.have.all.keys('message', '_id')
             expect(response.body.message).to.equal('Cadastro realizado com sucesso')
             expect(createdId).to.be.a('string').and.have.length.greaterThan(0)
             cy.deleteUser(createdId)
@@ -40,7 +41,7 @@ describe('Users - Edit User', () => {
         })
     })
 
-    const succesCases =[
+    const successCases =[
         {
             description: 'Should update user keeping the same email',
             user: { id: `${defaultId}`, nome: 'Modified Name', email: 'fulano@qa.com', password: 'novasenha123', administrador: 'true' }
@@ -79,7 +80,7 @@ describe('Users - Edit User', () => {
         }
     ]
 
-    succesCases.forEach(({description, user}) => {
+    successCases.forEach(({description, user}) => {
         it(`OK - ${description}`, () => {
             cy.editUser(user.id, user.nome, user.email, user.password, user.administrador).then((response) => cy.editUserSuccess(response))
             cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
