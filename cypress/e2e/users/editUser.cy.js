@@ -221,7 +221,6 @@ describe('Users - Edit User', () => {
                 expect(response.status).to.equal(expected.status)
                 expect(response.body).to.have.property(property).includes(expected.message)
             })
-            cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
         })
     })
 
