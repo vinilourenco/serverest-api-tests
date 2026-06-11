@@ -14,11 +14,6 @@ describe('Users - Edit User', () => {
     beforeEach(() => {
         randomName = chance.name()
         randomEmail = chance.email()
-
-        cy.registerUser(randomName, randomEmail).then((response) => {
-            userId = response.body._id
-            cy.log('Usuário criado com ID: ', userId);
-        })
     })
 
     afterEach(() => {
@@ -38,7 +33,11 @@ describe('Users - Edit User', () => {
     })
 
     it('OK - Should return status code 200 when updating an existent user', () => {
-        cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserSuccess(response))
+        cy.registerUser(randomName, randomEmail).then((response) => {
+            userId = response.body._id
+            cy.log('Usuário criado com ID: ', userId);
+            cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserSuccess(response))
+        })
     })
 
     const succesCases =[
