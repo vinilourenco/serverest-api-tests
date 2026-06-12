@@ -14,13 +14,18 @@ describe('Users - Get Users', () => {
         })
     })
 
+    it('OK - Empty ID segment falls through to user list endpoint', () => {
+        cy.request({
+            method: 'GET',
+            url: ENDPOINTS.USER(''),
+            failOnStatusCode: false
+        }).then((response) => {
+            expect(response.status).to.equal(200)
+            expect(response.body).to.have.all.keys('quantidade', 'usuarios')
+        })
+    })
+
     const errorCases = [
-        {
-            description: 'ID param is empty',
-            url: () => ENDPOINTS.USER(''),
-            expected: { status: 400, message: 'id deve ter exatamente 16 caracteres alfanuméricos' },
-            property: 'id'
-        },
         {
             description: 'ID param has minimum value (1 char)',
             url: () => ENDPOINTS.USER('a'),
