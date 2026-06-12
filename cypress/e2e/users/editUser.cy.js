@@ -1,16 +1,15 @@
-const Chance = require('chance');
+import { ENDPOINTS, SEEDED_IDS } from '../../support/constants'
+const Chance = require('chance')
 
 describe('Users - Edit User', () => {
 
     const chance = new Chance()
-    const defaultId = '0uxuPY0cbmQhpEz1'
-    const defaultId2 = '0uxuPY0cbmQhpEz2'
     const longName = Cypress._.repeat('abcdefghijklmnopqrstuvwxyz', 20)
     const longPassword = Cypress._.repeat('abcdefghijklmn10$%AMSKDKd!0i', 20)
     let randomName
     let randomEmail
     let userId
-    
+
     beforeEach(() => {
         randomName = chance.name()
         randomEmail = chance.email()
@@ -23,7 +22,7 @@ describe('Users - Edit User', () => {
     })
 
     it('OK - Should create a new user when updating unknown valid ID', () => {
-        cy.editUser(defaultId2, randomName, 'newuser@qa.com', 'novasenha123', 'true').then((response) => {
+        cy.editUser(SEEDED_IDS.NON_EXISTENT_USER, randomName, 'newuser@qa.com', 'novasenha123', 'true').then((response) => {
             const createdId = response.body._id
             expect(response.status).to.equal(201)
             expect(response.body).to.have.all.keys('message', '_id')
@@ -36,185 +35,169 @@ describe('Users - Edit User', () => {
     it('OK - Should return status code 200 when updating an existent user', () => {
         cy.registerUser(randomName, randomEmail).then((response) => {
             userId = response.body._id
-            cy.log('Usuário criado com ID: ', userId);
-            cy.editUser(`${userId}`, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserSuccess(response))
+            cy.editUser(userId, randomName, randomEmail, 'novasenha123', 'false').then((response) => cy.editUserSuccess(response))
         })
     })
 
-    const successCases =[
+    const successCases = [
         {
             description: 'Should update user keeping the same email',
-            user: { id: `${defaultId}`, nome: 'Modified Name', email: 'fulano@qa.com', password: 'novasenha123', administrador: 'true' }
+            user: { id: SEEDED_IDS.USER, nome: 'Modified Name', email: 'fulano@qa.com', password: 'novasenha123', administrador: 'true' }
         },
         {
             description: 'Should update administrador value succesfully',
-            user: { id: `${defaultId}`, nome: 'Fulano da Silva', email: 'fulano@qa.com', password: 'teste', administrador: 'false' }
+            user: { id: SEEDED_IDS.USER, nome: 'Fulano da Silva', email: 'fulano@qa.com', password: 'teste', administrador: 'false' }
         },
         {
             description: 'Should return 200 when using special characters for user editing',
-            user: { id: `${defaultId}`, nome: "Fúlano d'Sílva Jüñíor", email: 'fulano.special@qa.com', password: 'teste123', administrador: 'true' }
+            user: { id: SEEDED_IDS.USER, nome: "Fúlano d'Sílva Jüñíor", email: 'fulano.special@qa.com', password: 'teste123', administrador: 'true' }
         },
         {
             description: 'Should return 200 when updating user with a long name',
-            user: { id: `${defaultId}`, nome: longName , email: 'long.name@qa.com', password: 'teste', administrador: 'true' }
+            user: { id: SEEDED_IDS.USER, nome: longName, email: 'long.name@qa.com', password: 'teste', administrador: 'true' }
         },
         {
             description: 'Should return 200 for email with complex domain',
-            user: { id: `${defaultId}`, nome: 'Email Test' , email: 'user+tag@subdomain.enterprise.com.br', password: 'teste', administrador: 'true' }
+            user: { id: SEEDED_IDS.USER, nome: 'Email Test', email: 'user+tag@subdomain.enterprise.com.br', password: 'teste', administrador: 'true' }
         },
         {
             description: 'Should return 200 for password with special characters',
-            user: { id: `${defaultId}`, nome: 'Password Test' , email: 'special.password@qa.com', password: 'S3nh@!C0mpl3x@#$%', administrador: 'false' }
+            user: { id: SEEDED_IDS.USER, nome: 'Password Test', email: 'special.password@qa.com', password: 'S3nh@!C0mpl3x@#$%', administrador: 'false' }
         },
         {
             description: 'Should return 200 if password too short (1 char)',
-            user: { id: `${defaultId}`, nome: 'Short Password' , email: 'short.password@qa.com', password: '1', administrador: 'true' }
+            user: { id: SEEDED_IDS.USER, nome: 'Short Password', email: 'short.password@qa.com', password: '1', administrador: 'true' }
         },
         {
             description: 'Should return 200 if password too long',
-            user: { id: `${defaultId}`, nome: 'Long Password' , email: 'long.password@qa.com', password: longPassword, administrador: 'false' }
+            user: { id: SEEDED_IDS.USER, nome: 'Long Password', email: 'long.password@qa.com', password: longPassword, administrador: 'false' }
         },
         {
             description: 'Should return 200 if email is uppercase',
-            user: { id: `${defaultId}`, nome: 'Uppercase Email' , email: 'UPPERCASE.TEST@QA.COM', password: 'teste', administrador: 'true' }
+            user: { id: SEEDED_IDS.USER, nome: 'Uppercase Email', email: 'UPPERCASE.TEST@QA.COM', password: 'teste', administrador: 'true' }
         }
     ]
 
-    successCases.forEach(({description, user}) => {
+    successCases.forEach(({ description, user }) => {
         it(`OK - ${description}`, () => {
             cy.editUser(user.id, user.nome, user.email, user.password, user.administrador).then((response) => cy.editUserSuccess(response))
-            cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
+            cy.editUser(SEEDED_IDS.USER, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
         })
     })
 
     const errorCases = [
         {
             description: 'Should return error when blank space on fields',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: '  Fulano da Silva  ', email: '  fulano@qa.com  ', password: '  teste  ', administrador: 'true' },
             expected: { status: 400, message: 'email deve ser um email válido' },
             property: 'email'
         },
         {
             description: 'Should return error when updating user with existent email',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId2}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.NON_EXISTENT_USER),
             body: { nome: 'Duplicated User', email: 'fulano@qa.com', password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'Este email já está sendo usado' },
             property: 'message'
         },
         {
             description: 'Should return error when name field is empty',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: '', email: 'empty.name@qa.com', password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'nome não pode ficar em branco' },
             property: 'nome'
         },
         {
             description: 'Should return error when email field is empty',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Fulano da Silva', email: '', password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'email não pode ficar em branco' },
             property: 'email'
         },
         {
             description: 'Should return error when password field is empty',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Fulano da Silva', email: 'empty.password@qa.com.br', password: '', administrador: 'false' },
             expected: { status: 400, message: 'password não pode ficar em branco' },
             property: 'password'
         },
         {
             description: 'Should return error when administrador field is empty',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Fulano da Silva', email: 'empty.admin@qa.com.br', password: 'teste', administrador: '' },
             expected: { status: 400, message: "administrador deve ser 'true' ou 'false'" },
             property: 'administrador'
         },
         {
             description: 'Should return error when name field is missing',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
-            body: {  email: 'empty.admin@qa.com.br', password: 'teste', administrador: '' },
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
+            body: { email: 'empty.admin@qa.com.br', password: 'teste', administrador: '' },
             expected: { status: 400, message: 'nome é obrigatório' },
             property: 'nome'
         },
         {
             description: 'Should return error when email field is missing',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Email Missing', password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'email é obrigatório' },
             property: 'email'
         },
         {
             description: 'Should return error when password field is missing',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Password Missing', email: 'without.password@qa.com', administrador: 'true' },
             expected: { status: 400, message: 'password é obrigatório' },
             property: 'password'
         },
         {
             description: 'Should return error when administrador field is missing',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
-            body: { nome: 'Admin Missing', email: 'without.admin@qa.com', password: 'teste', },
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
+            body: { nome: 'Admin Missing', email: 'without.admin@qa.com', password: 'teste' },
             expected: { status: 400, message: 'administrador é obrigatório' },
             property: 'administrador'
         },
         {
             description: 'Should return error when email format is invalid',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Invalid Email', email: 'invalid_email.com', password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'email deve ser um email válido' },
             property: 'email'
         },
         {
             description: 'Should return error when email without domain',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Email Without Domain', email: 'user@', password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'email deve ser um email válido' },
             property: 'email'
         },
         {
             description: 'Should return error when administrador field is invalid',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Invalid Admin', email: 'invalid.admin@qa.com', password: 'teste', administrador: 'sim' },
             expected: { status: 400, message: "administrador deve ser 'true' ou 'false'" },
             property: 'administrador'
         },
         {
             description: 'Should return error when email field is a boolean',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Email Boolean', email: true, password: 'teste', administrador: 'true' },
             expected: { status: 400, message: 'email deve ser uma string' },
             property: 'email'
         },
         {
             description: 'Should return error when administrador field is a boolean',
-            method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: () => ENDPOINTS.USER(SEEDED_IDS.USER),
             body: { nome: 'Admin Boolean', email: 'admin.boolean@qa.com', password: 'teste', administrador: true },
             expected: { status: 400, message: "administrador deve ser 'true' ou 'false'" },
             property: 'administrador'
         }
     ]
-    
-    errorCases.forEach(({ description, method, url, body, expected, property }) => {
+
+    errorCases.forEach(({ description, url, body, expected, property }) => {
         it(`Bad Request - ${description}`, () => {
             cy.request({
-                method,
-                url,
+                method: 'PUT',
+                url: url(),
                 body,
                 failOnStatusCode: false
             }).then((response) => {
@@ -224,10 +207,10 @@ describe('Users - Edit User', () => {
         })
     })
 
-    it(`Bad Request - Should return error when extra fields are send`, () => {
+    it('Bad Request - Should return error when extra fields are send', () => {
         cy.request({
             method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: ENDPOINTS.USER(SEEDED_IDS.USER),
             body: {
                 nome: 'Campos Extras',
                 email: 'extras@qa.com.br',
@@ -243,13 +226,13 @@ describe('Users - Edit User', () => {
                 return body.campoExtra.includes('campoExtra não é permitido') && body.outroExtra.includes('outroExtra não é permitido')
             })
         })
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
+        cy.editUser(SEEDED_IDS.USER, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 
     it('Bad Request - Should return error when field values are null', () => {
         cy.request({
             method: 'PUT',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: ENDPOINTS.USER(SEEDED_IDS.USER),
             body: {
                 nome: null,
                 email: null,
@@ -263,6 +246,6 @@ describe('Users - Edit User', () => {
                 return body.nome.includes('nome deve ser uma string') && body.email.includes('email deve ser uma string') && body.password.includes('password deve ser uma string') && body.administrador.includes("administrador deve ser 'true' ou 'false'")
             })
         })
-        cy.editUser(`${defaultId}`, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
+        cy.editUser(SEEDED_IDS.USER, 'Fulano da Silva', 'fulano@qa.com', 'teste', 'true').then((response) => cy.editUserSuccess(response))
     })
 })

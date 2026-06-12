@@ -1,8 +1,8 @@
-const Chance = require('chance');
+import { ENDPOINTS, SEEDED_IDS } from '../../support/constants'
+const Chance = require('chance')
 
 describe('Products - List Registered Products', () => {
 
-    const defaultId = 'BeeJh5lz3k6kSIzA';
     const chance = new Chance()
     let randomName
     let randomString
@@ -21,7 +21,7 @@ describe('Products - List Registered Products', () => {
     it('TC001 - List all products without filter', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos`
+            url: ENDPOINTS.PRODUCTS
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.be.an('number')
@@ -32,12 +32,12 @@ describe('Products - List Registered Products', () => {
     it('TC002 - List all products by existent ID', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?_id=${defaultId}`,
+            url: `${ENDPOINTS.PRODUCTS}?_id=${SEEDED_IDS.PRODUCT}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.equal(1)
             expect(response.body.produtos).to.have.lengthOf(1)
-            expect(response.body.produtos[0]).to.have.property('_id', defaultId)
+            expect(response.body.produtos[0]).to.have.property('_id', SEEDED_IDS.PRODUCT)
         })
     })
 
@@ -48,7 +48,7 @@ describe('Products - List Registered Products', () => {
 
             cy.request({
                 method: 'GET',
-                url: `${Cypress.config('baseUrl')}/produtos?nome=${productName}`
+                url: `${ENDPOINTS.PRODUCTS}?nome=${productName}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 response.body.produtos.forEach((p) => {
@@ -65,7 +65,7 @@ describe('Products - List Registered Products', () => {
 
             cy.request({
                 method: 'GET',
-                url: `${Cypress.config('baseUrl')}/produtos?preco=${productPrice}`
+                url: `${ENDPOINTS.PRODUCTS}?preco=${productPrice}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 response.body.produtos.forEach((p) => {
@@ -82,7 +82,7 @@ describe('Products - List Registered Products', () => {
 
             cy.request({
                 method: 'GET',
-                url: `${Cypress.config('baseUrl')}/produtos?descricao=${description}`
+                url: `${ENDPOINTS.PRODUCTS}?descricao=${description}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 response.body.produtos.forEach((p) => {
@@ -99,7 +99,7 @@ describe('Products - List Registered Products', () => {
 
             cy.request({
                 method: 'GET',
-                url: `${Cypress.config('baseUrl')}/produtos?quantidade=${quantity}`
+                url: `${ENDPOINTS.PRODUCTS}?quantidade=${quantity}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 response.body.produtos.forEach((p) => {
@@ -117,7 +117,7 @@ describe('Products - List Registered Products', () => {
 
             cy.request({
                 method: 'GET',
-                url: `${Cypress.config('baseUrl')}/produtos?nome=${productName}&preco=${productPrice}`
+                url: `${ENDPOINTS.PRODUCTS}?nome=${productName}&preco=${productPrice}`
             }).then((response) => {
                 const produto = response.body.produtos[0]
                 expect(response.status).to.equal(200)
@@ -132,7 +132,7 @@ describe('Products - List Registered Products', () => {
     it('TC008 - Shows empty list when there is no products registered', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?nome=${randomName}`
+            url: `${ENDPOINTS.PRODUCTS}?nome=${randomName}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.equal(0)
@@ -143,7 +143,7 @@ describe('Products - List Registered Products', () => {
     it('TC009 - Empty list for inexistent ID', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?_id=${randomString}`
+            url: `${ENDPOINTS.PRODUCTS}?_id=${randomString}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.equal(0)
@@ -154,7 +154,7 @@ describe('Products - List Registered Products', () => {
     it('TC010 - Empty list for inexistent product name', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?nome=${randomString}`
+            url: `${ENDPOINTS.PRODUCTS}?nome=${randomString}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body.quantidade).to.equal(0)
@@ -170,7 +170,7 @@ describe('Products - List Registered Products', () => {
 
             cy.request({
                 method: 'GET',
-                url: `${Cypress.config('baseUrl')}/produtos?nome=${lowerCaseName}`
+                url: `${ENDPOINTS.PRODUCTS}?nome=${lowerCaseName}`
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 response.body.produtos.forEach((p) => {
@@ -185,7 +185,7 @@ describe('Products - List Registered Products', () => {
 
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?preco=${highPrice}`
+            url: `${ENDPOINTS.PRODUCTS}?preco=${highPrice}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
@@ -199,7 +199,7 @@ describe('Products - List Registered Products', () => {
 
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?quantidade=${highQuantity}`
+            url: `${ENDPOINTS.PRODUCTS}?quantidade=${highQuantity}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
@@ -213,7 +213,7 @@ describe('Products - List Registered Products', () => {
 
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?nome=${encodeURIComponent(blankName)}`
+            url: `${ENDPOINTS.PRODUCTS}?nome=${encodeURIComponent(blankName)}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
@@ -225,7 +225,7 @@ describe('Products - List Registered Products', () => {
     it('TC018 - Filter product by empty description', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?descricao=`
+            url: `${ENDPOINTS.PRODUCTS}?descricao=`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
@@ -241,7 +241,7 @@ describe('Products - List Registered Products', () => {
 
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/produtos?preco=${productPrice}&quantidade=${productQuantity}&nome=${productName}`
+            url: `${ENDPOINTS.PRODUCTS}?preco=${productPrice}&quantidade=${productQuantity}&nome=${productName}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
@@ -257,7 +257,7 @@ describe('Products - List Registered Products', () => {
 
             cy.request({
                 method: 'GET',
-                url: `${Cypress.config('baseUrl')}/produtos?nome=${encodeURIComponent(productName)}`,
+                url: `${ENDPOINTS.PRODUCTS}?nome=${encodeURIComponent(productName)}`,
                 failOnStatusCode: false
             }).then((response) => {
                 expect(response.status).to.equal(200)

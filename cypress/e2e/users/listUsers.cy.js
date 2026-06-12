@@ -1,3 +1,4 @@
+import { ENDPOINTS, SEEDED_IDS } from '../../support/constants'
 const Chance = require('chance')
 
 describe('Users - List Users', () => {
@@ -9,13 +10,13 @@ describe('Users - List Users', () => {
         email: 'fulano@qa.com',
         password: 'teste',
         administrador: 'true',
-        _id: '0uxuPY0cbmQhpEz1'
+        _id: SEEDED_IDS.USER
     }
 
     it('Should list all users', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios`
+            url: ENDPOINTS.USERS
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.include.all.keys('quantidade', 'usuarios')
@@ -25,7 +26,7 @@ describe('Users - List Users', () => {
     it('OK - Filtering by existing ID', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios?_id=${user._id}`
+            url: `${ENDPOINTS.USERS}?_id=${user._id}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('quantidade', 1)
@@ -39,7 +40,7 @@ describe('Users - List Users', () => {
     it('OK - Filtering by existing name', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios?nome=${user.nome}`
+            url: `${ENDPOINTS.USERS}?nome=${user.nome}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
@@ -51,7 +52,7 @@ describe('Users - List Users', () => {
     it('OK - Filtering by existing email', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios?email=${user.email}`
+            url: `${ENDPOINTS.USERS}?email=${user.email}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
@@ -64,7 +65,7 @@ describe('Users - List Users', () => {
     it('OK - Filtering by administrator', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios?administrador=${user.administrador}`
+            url: `${ENDPOINTS.USERS}?administrador=${user.administrador}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
@@ -79,7 +80,7 @@ describe('Users - List Users', () => {
 
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios?email=${randomEmail}`
+            url: `${ENDPOINTS.USERS}?email=${randomEmail}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
@@ -91,7 +92,7 @@ describe('Users - List Users', () => {
     it('OK - Filtering by non-existent name', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios?nome=${randomName}`
+            url: `${ENDPOINTS.USERS}?nome=${randomName}`
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('usuarios')
@@ -103,11 +104,11 @@ describe('Users - List Users', () => {
     it('Bad Request - Invalid param', () => {
         cy.request({
             method: 'GET',
-            url: `${Cypress.config('baseUrl')}/usuarios?invalidParam=value`,
+            url: `${ENDPOINTS.USERS}?invalidParam=value`,
             failOnStatusCode: false
         }).then((response) => {
             expect(response.status).to.equal(400)
             expect(response.body).to.have.property('invalidParam').includes('invalidParam não é permitido')
         })
     })
-}) 
+})

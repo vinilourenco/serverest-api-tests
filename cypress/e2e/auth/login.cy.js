@@ -1,3 +1,5 @@
+import { ENDPOINTS } from '../../support/constants'
+
 describe('Auth - Login', () => {
 
     const user = {
@@ -8,14 +10,14 @@ describe('Auth - Login', () => {
     it('Should login succesfully', () => {
         cy.request({
             method: 'POST',
-            url: `${Cypress.config('baseUrl')}/login`,
+            url: ENDPOINTS.LOGIN,
             body: {
                 email: user.email,
                 password: user.password
             }
         }).then((response) => {
-            expect(response.status).to.equal(200);
-            expect(response.statusText).to.equal('OK');
+            expect(response.status).to.equal(200)
+            expect(response.statusText).to.equal('OK')
             expect(response.body.message).to.be.a('string').that.includes('Login realizado com sucesso')
             expect(response.body.authorization).to.be.a('string').that.includes('Bearer')
         })
@@ -24,14 +26,14 @@ describe('Auth - Login', () => {
     it('Unauthorized - invalid password', () => {
         cy.request({
             method: 'POST',
-            url: `${Cypress.config('baseUrl')}/login`,
+            url: ENDPOINTS.LOGIN,
             body: {
                 email: user.email,
                 password: 'teste1'
             },
             failOnStatusCode: false
         }).then((response) => {
-            expect(response.status).to.equal(401);
+            expect(response.status).to.equal(401)
             expect(response.body).to.have.property('message').that.includes('inválidos')
         })
     })
@@ -39,7 +41,7 @@ describe('Auth - Login', () => {
     it('Bad Request - invalid email', () => {
         cy.request({
             method: 'POST',
-            url: `${Cypress.config('baseUrl')}/login`,
+            url: ENDPOINTS.LOGIN,
             body: {
                 email: 'fulanoqa.com',
                 password: user.password
@@ -54,7 +56,7 @@ describe('Auth - Login', () => {
     it('Bad Request - email is blank', () => {
         cy.request({
             method: 'POST',
-            url: `${Cypress.config('baseUrl')}/login`,
+            url: ENDPOINTS.LOGIN,
             body: {
                 email: '',
                 password: 'teste'
@@ -69,7 +71,7 @@ describe('Auth - Login', () => {
     it('Bad Request - password is blank', () => {
         cy.request({
             method: 'POST',
-            url: `${Cypress.config('baseUrl')}/login`,
+            url: ENDPOINTS.LOGIN,
             body: {
                 email: 'fulano@qa.com',
                 password: ''
@@ -84,7 +86,7 @@ describe('Auth - Login', () => {
     it('Bad Request - email and password fields are blank', () => {
         cy.request({
             method: 'POST',
-            url: `${Cypress.config('baseUrl')}/login`,
+            url: ENDPOINTS.LOGIN,
             body: {
                 email: '',
                 password: ''
@@ -96,14 +98,13 @@ describe('Auth - Login', () => {
             expect(response.body.password).to.be.a('string')
             expect(response.body.email).includes('branco')
             expect(response.body.password).includes('branco')
-
         })
     })
 
     it('Bad Request - Malformed Payload', () => {
         cy.request({
             method: 'POST',
-            url: `${Cypress.config('baseUrl')}/login`,
+            url: ENDPOINTS.LOGIN,
             body: {
                 username: 'fulano@qa.com',
                 password: 'teste'
