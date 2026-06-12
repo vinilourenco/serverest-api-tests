@@ -1,13 +1,12 @@
+import { ENDPOINTS, SEEDED_IDS } from '../../support/constants'
 const Chance = require('chance')
 
 describe('User - Delete User', () => {
 
     const chance = new Chance()
-    const defaultId = '0uxuPY0cbmQhpEz1';
-    const nonExistentUser = '0uxuPY0cbmQhpEz2';
-    let randomName;
-    let randomEmail;
-    let userId;
+    let randomName
+    let randomEmail
+    let userId
 
     beforeEach(() => {
         randomName = chance.name()
@@ -23,7 +22,7 @@ describe('User - Delete User', () => {
         cy.then(() => {
             cy.request({
                 method: 'DELETE',
-                url: `${Cypress.config('baseUrl')}/usuarios/${userId}`
+                url: ENDPOINTS.USER(userId)
             }).then((response) => {
                 expect(response.status).to.equal(200)
                 expect(response.body.message).to.equal('Registro excluído com sucesso')
@@ -34,17 +33,17 @@ describe('User - Delete User', () => {
     it('OK - Should return status code 200 when deleting a non-existent user', () => {
         cy.request({
             method: 'DELETE',
-            url: `${Cypress.config('baseUrl')}/usuarios/${nonExistentUser}`
+            url: ENDPOINTS.USER(SEEDED_IDS.NON_EXISTENT_USER)
         }).then((response) => {
             expect(response.status).to.equal(200)
             expect(response.body).to.have.property('message').includes('Nenhum registro excluído')
         })
     })
 
-    it.only('Bad Request - Should return erro when deleting user with registered cart', () => {
+    it('Bad Request - Should return erro when deleting user with registered cart', () => {
         cy.request({
             method: 'DELETE',
-            url: `${Cypress.config('baseUrl')}/usuarios/${defaultId}`,
+            url: ENDPOINTS.USER(SEEDED_IDS.USER),
             failOnStatusCode: false
         }).then((response) => {
             expect(response.status).to.equal(400)
