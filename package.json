@@ -4,6 +4,7 @@
   "description": "Studying API automation with Cypress and JavaScript.",
   "main": "index.js",
   "scripts": {
+    "start": "npx serverest@latest",
     "cy:open": "cypress open",
     "test": "cypress run",
     "test:cloud": "cypress run --record"
