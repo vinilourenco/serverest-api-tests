@@ -24,10 +24,7 @@ describe('Users - Edit User', () => {
     it('OK - Should create a new user when updating unknown valid ID', () => {
         cy.editUser(SEEDED_IDS.NON_EXISTENT_USER, randomName, 'newuser@qa.com', 'novasenha123', 'true').then((response) => {
             const createdId = response.body._id
-            expect(response.status).to.equal(201)
-            expect(response.body).to.have.all.keys('message', '_id')
-            expect(response.body.message).to.equal('Cadastro realizado com sucesso')
-            expect(createdId).to.be.a('string').and.have.length.greaterThan(0)
+            cy.createUserViaPut(response)
             cy.deleteUser(createdId)
         })
     })
@@ -201,8 +198,7 @@ describe('Users - Edit User', () => {
                 body,
                 failOnStatusCode: false
             }).then((response) => {
-                expect(response.status).to.equal(expected.status)
-                expect(response.body).to.have.property(property).includes(expected.message)
+                cy.badRequestWithProperty(response, property, expected.message)
             })
         })
     })

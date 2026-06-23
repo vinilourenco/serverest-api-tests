@@ -9,8 +9,7 @@ describe('Users - Get Users', () => {
             method: 'GET',
             url: ENDPOINTS.USER(SEEDED_IDS.USER)
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('_id', SEEDED_IDS.USER)
+            cy.getUserSuccess(response, SEEDED_IDS.USER)
         })
     })
 
@@ -20,8 +19,7 @@ describe('Users - Get Users', () => {
             url: ENDPOINTS.USER(''),
             failOnStatusCode: false
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.all.keys('quantidade', 'usuarios')
+            cy.listUsersSuccess(response)
         })
     })
 
@@ -47,8 +45,7 @@ describe('Users - Get Users', () => {
                 url: url(),
                 failOnStatusCode: false
             }).then((response) => {
-                expect(response.status).to.equal(expected.status)
-                expect(response.body).to.have.property(property).includes(expected.message)
+                cy.badRequestWithProperty(response, property, expected.message)
             })
         })
     })
@@ -59,8 +56,7 @@ describe('Users - Get Users', () => {
             url: ENDPOINTS.USER(SEEDED_IDS.NON_EXISTENT_USER),
             failOnStatusCode: false
         }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('message').includes('Usuário não encontrado')
+            cy.badRequestWithProperty(response, 'message', 'Usuário não encontrado')
         })
     })
 
@@ -70,8 +66,7 @@ describe('Users - Get Users', () => {
             url: ENDPOINTS.USER('{ "id": "0uxuPY0cbmQhpEz1" }'),
             failOnStatusCode: false
         }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('id').includes('id deve ter exatamente 16 caracteres alfanuméricos')
+            cy.badRequestWithProperty(response, 'id', 'id deve ter exatamente 16 caracteres alfanuméricos')
         })
     })
 })

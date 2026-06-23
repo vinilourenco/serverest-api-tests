@@ -18,8 +18,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: ENDPOINTS.USERS
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.include.all.keys('quantidade', 'usuarios')
+            cy.listUsersSuccess(response)
         })
     })
 
@@ -28,11 +27,8 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${ENDPOINTS.USERS}?_id=${user._id}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
+            cy.listUsersWithResults(response)
             expect(response.body).to.have.property('quantidade', 1)
-            expect(response.body).to.have.property('usuarios')
-                .that.is.an('array')
-                .and.is.not.empty
             expect(response.body.usuarios[0]).to.have.property('_id', user._id)
         })
     })
@@ -42,10 +38,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${ENDPOINTS.USERS}?nome=${user.nome}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('usuarios')
-                .that.is.an('array')
-                .and.is.not.empty
+            cy.listUsersWithResults(response)
         })
     })
 
@@ -54,10 +47,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${ENDPOINTS.USERS}?email=${user.email}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('usuarios')
-                .that.is.an('array')
-                .and.is.not.empty
+            cy.listUsersWithResults(response)
             expect(response.body.usuarios[0]).to.have.property('email', user.email)
         })
     })
@@ -67,10 +57,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${ENDPOINTS.USERS}?administrador=${user.administrador}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('usuarios')
-                .that.is.an('array')
-                .and.is.not.empty
+            cy.listUsersWithResults(response)
             expect(response.body.usuarios[0]).to.have.property('administrador', user.administrador)
         })
     })
@@ -82,10 +69,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${ENDPOINTS.USERS}?email=${randomEmail}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('usuarios')
-                .that.is.an('array')
-                .and.is.empty
+            cy.listUsersEmpty(response)
         })
     })
 
@@ -94,10 +78,7 @@ describe('Users - List Users', () => {
             method: 'GET',
             url: `${ENDPOINTS.USERS}?nome=${randomName}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('usuarios')
-                .that.is.an('array')
-                .and.is.empty
+            cy.listUsersEmpty(response)
         })
     })
 
@@ -107,8 +88,7 @@ describe('Users - List Users', () => {
             url: `${ENDPOINTS.USERS}?invalidParam=value`,
             failOnStatusCode: false
         }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body).to.have.property('invalidParam').includes('invalidParam não é permitido')
+            cy.badRequestWithProperty(response, 'invalidParam', 'invalidParam não é permitido')
         })
     })
 })

@@ -16,7 +16,7 @@ describe('User - Delete User', () => {
     it('OK - Should return status code 200 when deleting an user', () => {
         cy.registerUser(randomName, randomEmail)
             .then((response) => {
-                expect(response.status).to.equal(201)
+                cy.registerUserSuccess(response)
                 userId = response.body._id
             })
         cy.then(() => {
@@ -24,8 +24,7 @@ describe('User - Delete User', () => {
                 method: 'DELETE',
                 url: ENDPOINTS.USER(userId)
             }).then((response) => {
-                expect(response.status).to.equal(200)
-                expect(response.body.message).to.equal('Registro excluído com sucesso')
+                cy.deleteUserSuccess(response)
             })
         })
     })
@@ -35,8 +34,7 @@ describe('User - Delete User', () => {
             method: 'DELETE',
             url: ENDPOINTS.USER(SEEDED_IDS.NON_EXISTENT_USER)
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.have.property('message').includes('Nenhum registro excluído')
+            cy.deleteNonExistentUserSuccess(response)
         })
     })
 
@@ -46,9 +44,7 @@ describe('User - Delete User', () => {
             url: ENDPOINTS.USER(SEEDED_IDS.USER),
             failOnStatusCode: false
         }).then((response) => {
-            expect(response.status).to.equal(400)
-            expect(response.body.message).to.be.a('string').includes('Não é permitido excluir usuário com carrinho cadastrado')
-            expect(response.body.idCarrinho).to.be.a('string').and.have.length.greaterThan(0)
+            cy.deleteUserWithCartError(response)
         })
     })
 })

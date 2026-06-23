@@ -16,7 +16,7 @@ describe('Users - Register Users', () => {
     afterEach(() => {
         if (userId) {
             cy.deleteUser(userId).then((response) => {
-                expect(response.status).to.equal(200)
+                cy.deleteUserSuccess(response)
                 userId = null
             })
         }
@@ -25,9 +25,7 @@ describe('Users - Register Users', () => {
     it('OK - Register user successfully', () => {
         cy.registerUser(randomName, randomEmail).then((response) => {
             userId = response.body._id
-            expect(response.status).to.equal(201)
-            expect(response.body).to.have.property('message').that.includes('Cadastro realizado com sucesso')
-            expect(response.body).to.have.property('_id').that.is.a('string').and.not.empty
+            cy.registerUserSuccess(response)
         })
     })
 
@@ -102,8 +100,7 @@ describe('Users - Register Users', () => {
                 body: body(),
                 failOnStatusCode: false
             }).then((response) => {
-                expect(response.status).to.equal(expected.status)
-                expect(response.body).to.have.property(property).includes(expected.message)
+                cy.badRequestWithProperty(response, property, expected.message)
             })
         })
     })

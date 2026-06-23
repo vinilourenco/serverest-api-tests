@@ -23,9 +23,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: ENDPOINTS.PRODUCTS
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body.quantidade).to.be.an('number')
-            expect(response.body.produtos).to.be.an('array')
+            cy.listProductsSuccess(response)
         })
     })
 
@@ -134,9 +132,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: `${ENDPOINTS.PRODUCTS}?nome=${randomName}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body.quantidade).to.equal(0)
-            expect(response.body.produtos).to.have.lengthOf(0)
+            cy.listProductsEmpty(response)
         })
     })
 
@@ -145,9 +141,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: `${ENDPOINTS.PRODUCTS}?_id=${randomString}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body.quantidade).to.equal(0)
-            expect(response.body.produtos).to.have.lengthOf(0)
+            cy.listProductsEmpty(response)
         })
     })
 
@@ -156,9 +150,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: `${ENDPOINTS.PRODUCTS}?nome=${randomString}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body.quantidade).to.equal(0)
-            expect(response.body.produtos).to.have.lengthOf(0)
+            cy.listProductsEmpty(response)
         })
     })
 
@@ -187,10 +179,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: `${ENDPOINTS.PRODUCTS}?preco=${highPrice}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
-                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
-            })
+            cy.listProductsEmpty(response)
         })
     })
 
@@ -201,10 +190,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: `${ENDPOINTS.PRODUCTS}?quantidade=${highQuantity}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
-                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
-            })
+            cy.listProductsEmpty(response)
         })
     })
 
@@ -215,10 +201,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: `${ENDPOINTS.PRODUCTS}?nome=${encodeURIComponent(blankName)}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
-                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
-            })
+            cy.listProductsEmpty(response)
         })
     })
 
@@ -227,10 +210,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: `${ENDPOINTS.PRODUCTS}?descricao=`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
-                return body.quantidade >= 0 && Array.isArray(body.produtos) && body.produtos.length >= 0
-            })
+            cy.listProductsSuccess(response)
         })
     })
 
@@ -243,10 +223,7 @@ describe('Products - List Registered Products', () => {
             method: 'GET',
             url: `${ENDPOINTS.PRODUCTS}?preco=${productPrice}&quantidade=${productQuantity}&nome=${productName}`
         }).then((response) => {
-            expect(response.status).to.equal(200)
-            expect(response.body).to.be.an('object').and.to.have.all.keys('quantidade', 'produtos').and.to.satisfy((body) => {
-                return body.quantidade === 0 && Array.isArray(body.produtos) && body.produtos.length === 0
-            })
+            cy.listProductsEmpty(response)
         })
     })
 
